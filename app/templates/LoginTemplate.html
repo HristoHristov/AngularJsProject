@@ -1,6 +1,6 @@
 <form>
 <h2>{{title}}</h2>
-<input type="text" id="username" placeholder="Username" name="username"/>
-<input type="text" id="password" placeholder="Password" name="password"/>
-<input type="submit" value="Login"/>
+<input type="text" id="username" ng-model="username" placeholder="Username" name="username"/>
+<input type="password" id="password" ng-model="password" placeholder="Password" name="password"/>
+<input type="submit" ng-click="userLogin()" value="Login"/>
 </form>

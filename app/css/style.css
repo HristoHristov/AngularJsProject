@@ -84,7 +84,7 @@ section {
     height: auto;
 }
 
-#username, #email {
+#username, #email, #name {
     padding: 5px;
     background: white;
     background-color: white;
@@ -125,6 +125,14 @@ input[type="submit"] {
     color: #012a3a;
     font-weight: bold;
     margin-bottom: 20px;
+}
+input[type="radio"]{
+    margin: auto;
+    display: inline-block;
+    width: 10%;
+}
+body > section > ng-view > form > label:nth-child(7) {
+    margin-left: 50px;
 }
 h2 {
     width: 100%;

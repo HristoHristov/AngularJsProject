@@ -1,8 +1,15 @@
 <form>
     <h2>{{title}}</h2>
-    <input type="text" id="username" placeholder="Username" name="username"/>
-    <input type="text" id="email" placeholder="Email" name="email"/>
-    <input type="text" id="password" placeholder="Password" name="password"/>
-    <input type="text" id="rep-password" placeholder="Repeat Password" name="password"/>
-    <input type="submit" value="Register"/>
+    <input type="text" id="username" ng-model="username" placeholder="Username" name="username"/>
+    <input type="email" id="email" ng-model="email" placeholder="Email" name="email"/>
+    <input type="text" id="name" ng-model="name" placeholder="Name" name="name"/>
+    <input type="password" id="password" ng-model="password" placeholder="Password" name="password"/>
+    <input type="password" id="rep-password" ng-model="repeatPass"placeholder="Repeat Password" name="password"/>
+    <label for="female">Female</label>
+    <input type="radio" id="female" ng-model="gender" value="2"/>
+    <label for="male">Male</label>
+    <input type="radio" id="male" ng-model="gender" value="1"/>
+    <label for="other">Other</label>
+    <input type="radio" id="other" ng-model="gender" value="0"/>
+    <input type="submit" ng-click="userRegister()" value="Register"/>
 </form>
