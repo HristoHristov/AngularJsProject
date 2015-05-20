@@ -13,11 +13,7 @@
             <span>{{username}}</span>
         </div>
         <ul>
-            <li ng-style="{'margin-left': margin}"><span><a href="#/">Home</a></span></li>
-            <li ng-style="{'margin-left': margin}" ng-hide="isLogin"><span><a href="#/Login">Login</a></span></li>
-            <li ng-style="{'margin-left': margin}" ng-hide="isLogin"><span><a href="#/Register">Register</a></span></li>
-            <li ng-show="isLogin" ng-style="{'margin-left': margin}"><span><a href="#/Logout">Logout</a></span></li>
-            <li ng-show="isLogin" ng-style="{'margin-left': margin}"><span><a href="#/Settings">Settings</a></span></li>
+            <li ng-repeat="data in headerData" ng-style="{'margin-left': margin}"><span id="{{data.id}}"><a  href="{{data.href}}">{{data.linkValue}}</a></span></li>
         </ul>
     </header>
     <section>

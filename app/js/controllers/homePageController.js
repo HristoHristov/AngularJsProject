@@ -1,17 +1,28 @@
 app.controller('WSNHomePageController', function($scope, $window, requester){
     if(sessionStorage.length == 0){
         $scope.margin = "200px";
-        $scope.style = {'width': 'margin'};
+        var navHeaderData = [
+            {id: 'home', href: '#/', linkValue: 'Home'},
+            {id: 'login', href: '#/Login', linkValue: 'Login'},
+            {id: 'register', href: '#/Register', linkValue: 'Register'}
+        ];
+        $scope.headerData = navHeaderData;
         $window.location.assign('#/Login');
     }
     else {
         $scope.image = "img/images.jpg";
         $scope.username = sessionStorage.userName;
-        $scope.margin = "200px";
+        $scope.margin = "115px";
         $scope.isLogin = true;
         $scope.comment= ''
 
-
+        var navHeaderData = [
+            {id: 'home', href: '#/', linkValue: 'Home'},
+            {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friend Request'},
+            {id: 'settings', href: '#/Settings', linkValue: 'Settings'},
+            {id: 'logout', href: '#/Logout', linkValue: 'Logout'}
+        ];
+        $scope.headerData = navHeaderData;
         var headers = {
             "Authorization" : sessionStorage.Authorization
         };

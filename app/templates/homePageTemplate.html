@@ -2,8 +2,8 @@
 
     <textarea ng-show="isLogin" ng-model="comment"></textarea>
     <button ng-click="addComment()">Add Post</button>
-<section class="post" ng-repeat="userPost in posts">
-    <article>
+<section class="post">
+    <article ng-repeat="userPost in posts">
         <div class="user-image">
             <img ng-if="userPost.wallOwner.profileImageData === null" src="img/images.jpg">
             <img ng-if="userPost.wallOwner.profileImageData !== null" src="{{userPost.wallOwner.profileImageData}}">

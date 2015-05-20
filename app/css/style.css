@@ -24,23 +24,23 @@ ul li span:before {
     background-repeat: no-repeat;
 
 }
-ul li:nth-of-type(1) span:before {
+ul li #home:before {
     background-image: url("http://masdirect.com/wp-content/uploads/2013/04/Home.png");
 }
-ul li:nth-of-type(2) span:before {
+ul li #login:before {
     background-image: url("http://images.clipartpanda.com/key-outline-clipart-lock_key_lineart.png");
 }
-ul li:nth-of-type(3) span:before {
+ul li #register:before, #friend-request:before {
     background-image: url("http://dec-uae.com/12/sign-up-icon-png-212.png");
     height: 28px;
     margin-left: 7px;
 }
-ul li:nth-of-type(4) span:before {
+ul li #logout:before {
     background-image: url("../img/log_off-5212.png");
     height: 35px;
     margin-left: 7px;
 }
-ul li:nth-of-type(5) span:before {
+ul li #settings:before {
     background-image: url("../img/user_options-512.png");
     height: 35px;
     margin-left: 7px;
@@ -213,4 +213,12 @@ section article {
 }
 .post-content {
     margin-left: 20px;
+}
+#request {
+    text-align: center;
+    margin: -65px 35px;
+    position: absolute;
+    background: red;
+    height: 20px;
+    width: 20px;
 }
