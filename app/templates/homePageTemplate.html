@@ -1,0 +1,19 @@
+<h1>Home Page</h1>
+
+    <textarea ng-show="isLogin" ng-model="comment"></textarea>
+    <button ng-click="addComment()">Add Post</button>
+<section class="post" ng-repeat="userPost in posts">
+    <article>
+        <div class="user-image">
+            <img ng-if="userPost.wallOwner.profileImageData === null" src="img/images.jpg">
+            <img ng-if="userPost.wallOwner.profileImageData !== null" src="{{userPost.wallOwner.profileImageData}}">
+        </div>
+        <div class="comment-data">
+            <div>{{userPost.author.name}}</div>
+            <data>{{userPost.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
+        </div>
+        <div class="post-content">{{userPost.postContent}}</div>
+
+    </article>
+</section>
+

@@ -74,7 +74,7 @@ body > header > ul > li:nth-child(6) > span{
     text-align: center;
 }
 form {
-    margin: 100px auto;
+    margin: 50px auto;
     background: linear-gradient(#012a3a, #44c1ef, #012a3a, #44c1ef);
     width: 400px;
     padding-bottom: 10px;
@@ -158,4 +158,59 @@ h1 {
     display: inline-block;
     color: rgb(220, 220, 220);
     text-align: center;
+}
+#welcome-msg {
+    margin-top: 30px;
+    color: #012a3a;
+}
+body > section > ng-view > div {
+    width: 15%;
+    margin: 10px auto;
+    color: #012a3a;
+}
+#user-image {
+    height:250px;
+    width: 290px;
+    margin: -195px 30px;
+    position: absolute;
+}
+#user-image img {
+    width: 50%;
+    height: 65%;
+}
+#user-image span {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: 80px;
+    margin-left: 15px;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+}
+section article {
+    background: white;
+    width: 600px;
+    margin: 20px auto;
+    border-radius: 10px;
+    min-height: 240px;
+    height: auto;
+}
+.user-image {
+    display: inline-block;
+    margin: 20px 20px;
+    background: red;
+    width: 110px;
+    height: 130px;
+}
+.user-image img {
+    width: 100%;
+    height: 100%;
+}
+.comment-data {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 30px;
+}
+.post-content {
+    margin-left: 20px;
 }

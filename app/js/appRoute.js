@@ -7,4 +7,12 @@ app.config(function($routeProvider){
         templateUrl: './templates/RegisterTemplate.html',
         controller: 'WSNRegisterController'
     });
+    $routeProvider.when('/', {
+        templateUrl: './templates/homePageTemplate.html',
+        controller: 'WSNHomePageController'
+    });
+    $routeProvider.when('/Logout', {
+        template: '',
+        controller: 'WSNLogoutController'
+    });
 });

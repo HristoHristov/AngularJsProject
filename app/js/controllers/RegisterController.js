@@ -1,4 +1,4 @@
-app.controller('WSNRegisterController', function($scope, requester){
+app.controller('WSNRegisterController', function($scope, $window, requester){
     $scope.title = "Register"
     $scope.username = '';
     $scope.name = '';
@@ -17,8 +17,11 @@ app.controller('WSNRegisterController', function($scope, requester){
             "gender": $scope.gender
         }
         requester.postRequest('users/register', {}, data).then(
-            function(data){
-                console.log(data);
+            function(response){
+                sessionStorage['Authorization'] = response.token_type + ' ' + response.access_token;
+                sessionStorage['userName'] = response.userName;
+                $window.location.assign('#/');
+                $window.location.reload(true);
             },
             function (error) {
                 console.log(error);
