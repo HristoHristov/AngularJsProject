@@ -13,8 +13,13 @@
             <span>{{username}}</span>
         </div>
         <ul>
-            <li ng-repeat="data in headerData" ng-style="{'margin-left': margin}"><span id="{{data.id}}"><a  href="{{data.href}}">{{data.linkValue}}</a></span></li>
+            <li ng-repeat="data in headerData" ng-style="{'margin-left': margin}">
+                <span  ng-if="data.id !== 'friend-request'" id="{{data.id}}"><a  href="{{data.href}}">{{data.linkValue}}</a></span>
+                <span ng-if="data.id === 'friend-request'" id="{{data.id}}"><a  href="{{data.href}}">Friends Request</a><div id="request" ng-show="friendsRequest > 0">{{friendsRequest}}</div></span>
+            </li>
+
         </ul>
+
     </header>
     <section>
         <ng-view></ng-view>

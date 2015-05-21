@@ -1,9 +1,55 @@
-<h1>Home Page</h1>
+<section id="friends">
+    <h2>Friends</h2>
+    <article>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>Zahari Nikolovfsdfsfsdfdsfsfadfa</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+        <div>
+            <img src="{{image}}"/>
+            <span>HristoHristov</span>
+        </div>
+    </article>
+</section>
 
-    <textarea ng-show="isLogin" ng-model="comment"></textarea>
+<section id="add-post">
+    <div class="user-image">
+        <img src="{{image}}">
+    </div>
+    <textarea placeholder="Add Post" ng-show="isLogin" ng-model="comment"></textarea>
     <button ng-click="addComment()">Add Post</button>
-<section class="post">
-    <article ng-repeat="userPost in posts">
+</section>
+
+<section class="post" ng-repeat="userPost in posts">
+    <article>
         <div class="user-image">
             <img ng-if="userPost.wallOwner.profileImageData === null" src="img/images.jpg">
             <img ng-if="userPost.wallOwner.profileImageData !== null" src="{{userPost.wallOwner.profileImageData}}">
@@ -11,9 +57,41 @@
         <div class="comment-data">
             <div>{{userPost.author.name}}</div>
             <data>{{userPost.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
+            <div class="like-unlike">
+                <img src="img/Facebook-Like.png">
+                <img src="img/393247899_dislike_answer_2_xlarge.png"/>
+
+            </div>
         </div>
         <div class="post-content">{{userPost.postContent}}</div>
+        <div class="like-post">
+            <img src="img/Facebook-Like.png"/>
+            <span>Likes: {{userPost.likesCount}}</span>
+        </div>
 
+    </article>
+    <article class="comment">
+        <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comment: 24</span>
+        <div class="comment-image">
+            <img src="{{image}}"/>
+            <input type="search"/>
+            <div class="like-unlike">
+                <img src="img/Facebook-Like.png">
+                <img src="img/393247899_dislike_answer_2_xlarge.png"/>
+            </div>
+            <span>Prese enter to Post!</span>
+        </div>
+        <div class="user-comments">
+            <div class="comment-image">
+                <img src="{{image}}"/>
+                <div class="username-date">
+                    <span>Hristo</span>
+                    <data>10.10.2010</data>
+                </div>
+
+            </div>
+            <div>Comment lkajsdf sajfs sjlsdfj aflsj  fsdkasjf </div>
+        </div>
     </article>
 </section>
 

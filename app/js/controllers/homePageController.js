@@ -18,7 +18,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
 
         var navHeaderData = [
             {id: 'home', href: '#/', linkValue: 'Home'},
-            {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friend Request'},
+            {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friends Request'},
             {id: 'settings', href: '#/Settings', linkValue: 'Settings'},
             {id: 'logout', href: '#/Logout', linkValue: 'Logout'}
         ];
@@ -29,6 +29,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
         var username = sessionStorage.userName;
         requester.getRequest('users/'+ username + '/wall?StartPostId&PageSize=5', headers).then(
             function(response){
+                $scope.friendsRequest = 1;
                 console.log(response)
                 $scope.posts = response;
             },
