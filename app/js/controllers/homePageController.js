@@ -14,7 +14,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
         $scope.username = sessionStorage.userName;
         $scope.margin = "115px";
         $scope.isLogin = true;
-        $scope.comment= ''
+        $scope.post= '';
 
         var navHeaderData = [
             {id: 'home', href: '#/', linkValue: 'Home'},
@@ -37,15 +37,33 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
                 console.log(error);
             }
         )
-        $scope.addComment = function(){
+        $scope.addComment = function(id, e) {
+            console.log(e.srcElement.value)
+
+            if(e.keyCode == '13') {
+                var data = {
+                    "commentContent": e.srcElement.value
+                };
+
+                requester.postRequest('posts/' + id + '/comments', headers, data).then(
+                    function(success) {
+                        console.log(success);
+                    },
+                    function(err) {
+                        console.log(err);
+                    }
+                )
+            }
+        }
+        $scope.addPost = function(){
             var data = {
-                "postContent": $scope.comment,
+                "postContent": $scope.post,
                 "username": sessionStorage.userName
             };
 
             requester.postRequest('Posts', headers, data).then(
                 function(requester){
-                    console.log(requester)
+                    $window.location.reload(true);
                 },
                 function (error) {
                     console.log(error);
@@ -56,5 +74,16 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
         }
 
         console.log('show login page')
+    }
+});
+app.run(function($timeout) {
+    console.log('vliza')
+    if(sessionStorage.entered === 'false') {
+        $timeout(function () {
+            //sessionStorage.clear();
+            //$window.location.reload(true);
+            console.log('Ok')
+        }, 3000);
+        sessionStorage.entered = true;
     }
 });

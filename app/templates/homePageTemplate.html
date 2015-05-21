@@ -42,17 +42,17 @@
 
 <section id="add-post">
     <div class="user-image">
-        <img src="{{image}}">
+        <img ng-src="{{image}}">
     </div>
-    <textarea placeholder="Add Post" ng-show="isLogin" ng-model="comment"></textarea>
-    <button ng-click="addComment()">Add Post</button>
+    <textarea placeholder="Add Post" ng-show="isLogin" ng-model="post"></textarea>
+    <button ng-click="addPost()">Add Post</button>
 </section>
 
 <section class="post" ng-repeat="userPost in posts">
-    <article>
+    <article class="user-posts">
         <div class="user-image">
-            <img ng-if="userPost.wallOwner.profileImageData === null" src="img/images.jpg">
-            <img ng-if="userPost.wallOwner.profileImageData !== null" src="{{userPost.wallOwner.profileImageData}}">
+            <img ng-if="userPost.wallOwner.profileImageData === null" ng-src="img/images.jpg">
+            <img ng-if="userPost.wallOwner.profileImageData !== null" ng-src="{{userPost.wallOwner.profileImageData}}">
         </div>
         <div class="comment-data">
             <div>{{userPost.author.name}}</div>
@@ -73,24 +73,24 @@
     <article class="comment">
         <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comment: 24</span>
         <div class="comment-image">
-            <img src="{{image}}"/>
-            <input type="search"/>
+            <img ng-src="{{image}}"/>
+            <input type="search" ng-keyup="addComment(userPost.id, $event)"/>
             <div class="like-unlike">
                 <img src="img/Facebook-Like.png">
                 <img src="img/393247899_dislike_answer_2_xlarge.png"/>
             </div>
             <span>Prese enter to Post!</span>
         </div>
-        <div class="user-comments">
+        <div ng-show="userPost.comments.length > 0"class="user-comments" ng-repeat="userComment in userPost.comments">
             <div class="comment-image">
-                <img src="{{image}}"/>
+                <img ng-src="{{image}}"/>
                 <div class="username-date">
                     <span>Hristo</span>
                     <data>10.10.2010</data>
                 </div>
 
             </div>
-            <div>Comment lkajsdf sajfs sjlsdfj aflsj  fsdkasjf </div>
+            <div class="comment-content">{{userComment.commentContent}}</div>
         </div>
     </article>
 </section>

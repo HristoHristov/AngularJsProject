@@ -190,13 +190,14 @@ body > section > ng-view > div {
     vertical-align: top;
     color: white;
 }
-section article {
+section .user-posts {
     background: white;
     width: 600px;
     margin: 20px auto;
     border-radius: 10px;
-    min-height: 240px;
+    min-height: 200px;
     height: auto;
+    padding-bottom: 30px;
 }
 .user-image {
     display: inline-block;
@@ -281,7 +282,8 @@ data:after {
     margin-top: 10px;
     margin-right: 10px;
     width: 120px;
-    float: right;
+    margin-left: 80%;
+
 }
 .like-post img {
     width: 30px;
@@ -333,6 +335,8 @@ data:after {
     display: inline-block;
     margin-top: 10px;
     min-height: 115px;
+    height: auto;
+    padding-bottom: 30px;
     margin-left: 460px;
  }
 .comment-image img {
@@ -382,4 +386,10 @@ data:after {
     margin: 0;
     display: block;
     font-size: 15px;
+}
+.psot article {
+    height: auto;
+}
+.comment-content {
+    margin-left: 10px;
 }

@@ -12,12 +12,9 @@ app.controller('WSNLoginController', function($scope, $window, $timeout, request
             function(response){
                 console.log(response)
                 sessionStorage['Authorization'] = response.token_type + ' ' + response.access_token;
-                $timeout(function(){
-                    sessionStorage.clear();
-                    $window.location.reload(true);
-                }, response.expires_in);
                 sessionStorage['expires_in'] = response.expires_in;
                 sessionStorage['userName'] = response.userName;
+                sessionStorage['entered'] = false;
                 $window.location.assign('#/');
                 $window.location.reload(true);
             },

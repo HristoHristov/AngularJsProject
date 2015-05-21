@@ -6,10 +6,19 @@
 </head>
 <link rel="shortcut icon" href="img/world.png">
 <link rel="stylesheet" href="css/style.css">
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/LoginController.js"></script>
+<script src="js/controllers/RegisterController.js"></script>
+<script src="js/controllers/homePageController.js"></script>
+<script src="js/controllers/logoutController.js"></script>
+<script src="js/requester.js"></script>
+<script src="js/appRoute.js"></script>
 <body>
     <header ng-controller="WSNHomePageController">
         <div ng-show="isLogin" id="user-image">
-            <img src="{{image}}"/>
+            <img ng-src="{{image}}"/>
             <span>{{username}}</span>
         </div>
         <ul>
@@ -17,9 +26,7 @@
                 <span  ng-if="data.id !== 'friend-request'" id="{{data.id}}"><a  href="{{data.href}}">{{data.linkValue}}</a></span>
                 <span ng-if="data.id === 'friend-request'" id="{{data.id}}"><a  href="{{data.href}}">Friends Request</a><div id="request" ng-show="friendsRequest > 0">{{friendsRequest}}</div></span>
             </li>
-
         </ul>
-
     </header>
     <section>
         <ng-view></ng-view>
@@ -28,15 +35,7 @@
         <h1><img src="img/world.png"/>World Social Network</h1>
     </footer>
 
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular/angular-route.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers/LoginController.js"></script>
-    <script src="js/controllers/RegisterController.js"></script>
-    <script src="js/controllers/homePageController.js"></script>
-    <script src="js/controllers/logoutController.js"></script>
-    <script src="js/requester.js"></script>
-    <script src="js/appRoute.js"></script>
+
 
 </body>
 </html>
