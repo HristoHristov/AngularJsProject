@@ -15,8 +15,23 @@ app.controller('WSNLoginController', function($scope, $window, $timeout, request
                 sessionStorage['expires_in'] = response.expires_in;
                 sessionStorage['userName'] = response.userName;
                 sessionStorage['entered'] = false;
-                $window.location.assign('#/');
-                $window.location.reload(true);
+                var headers = {
+                    "Authorization" : sessionStorage.Authorization
+                };
+                requester.getRequest('me', headers).then(
+                    function(userData) {
+                        console.log(userData)
+
+                        sessionStorage['name'] = userData.name;
+                        sessionStorage['image'] = userData.profileImageData;
+                        $window.location.assign('#/');
+                        $window.location.reload(true);
+                    },
+                    function (err) {
+                        console.log(err);
+
+                    }
+                )
             },
             function(error){
                 console.log(error);

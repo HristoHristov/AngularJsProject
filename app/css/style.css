@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -51,6 +52,7 @@ ul li #settings:before {
 ul li a {
     color: white;
     text-decoration: none;
+    height: 30px;
 }
 
 ul li:first-of-type {
@@ -96,7 +98,7 @@ section {
     background-repeat: no-repeat;
     background-position-x: 4px;
     background-position-y: 2px;
-    padding-left: 50px;
+    padding-left: 35px;
 }
 #email {
     background-image: url("../img/Pictogram_Message.png");
@@ -113,13 +115,13 @@ section {
     background-repeat: no-repeat;
     background-position-x: 4px;
     background-position-y: 2px;
-    padding-left: 50px;
+    padding-left: 35px;
 }
 
 input {
     border: 0px;
     display: block;
-    width: 60%;
+    width:65%;
     margin: 15px auto;
 }
 input[type="submit"] {
@@ -173,13 +175,14 @@ body > section > ng-view > div {
 }
 #user-image {
     height:250px;
-    width: 290px;
+    min-width: 290px;
+    width: auto;
     margin: -195px 30px;
     position: absolute;
 }
 #user-image img {
-    width: 50%;
-    height: 65%;
+    width: 130px;
+    height: 170px;
 }
 #user-image span {
     font-size: 20px;
@@ -286,7 +289,7 @@ data:after {
 
 }
 .like-post img {
-    width: 30px;
+    width: 28px;
 }
 .like-post span {
     display: inline-block;
@@ -344,6 +347,7 @@ data:after {
     height: 60px;
 }
 .comment-image input {
+    padding-left: 10px;
     width: 390px;
     vertical-align: top;
     display: inline-block;
@@ -391,5 +395,56 @@ data:after {
     height: auto;
 }
 .comment-content {
+    margin-left: 10px;
+}
+.like-unlike-comment img {
+    width: 20px;
+    height: 20px;
+}
+.like-unlike-comment {
+    width: 50px;
+    display: block;
+    height: 30px;
+    margin-top: 1px;
+}
+#img {
+    width: 130px;
+    height: 190px;
+    margin-bottom: 30px;
+}
+#img img {
+    width: 100%;
+    height: 80%;
+}
+
+div.upload {
+    width: 157px;
+    height: 57px;
+    color: black;
+    background: url('http://us-cms.jotservers.com/uploads/image_upload/image_upload/global/21355_upload.png');
+    background-size: 100% 100%;
+    overflow: hidden;
+    margin-left: -12px;
+}
+
+    div.upload input {
+        display: block !important;
+        width: 157px !important;
+        height: 57px !important;
+        opacity: 0 !important;
+        overflow: hidden !important;
+    }
+#user-data, #img {
+    vertical-align: top;
+    display: inline-block;
+}
+#edit-profile {
+    margin: 80px auto;
+    padding: 30px;
+    width: 30%;
+    background: linear-gradient(#012a3a, #44c1ef, #012a3a, #44c1ef);
+
+}
+#user-data {
     margin-left: 10px;
 }

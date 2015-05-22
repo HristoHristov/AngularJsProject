@@ -10,8 +10,15 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
         $window.location.assign('#/Login');
     }
     else {
-        $scope.image = "img/images.jpg";
-        $scope.username = sessionStorage.userName;
+        if(sessionStorage.image === null) {
+            $scope.image = "img/images.jpg";
+        }
+        else {
+            $scope.image = sessionStorage.image;
+        }
+
+        $scope.name = sessionStorage.name;
+
         $scope.margin = "115px";
         $scope.isLogin = true;
         $scope.post= '';
@@ -37,6 +44,47 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
                 console.log(error);
             }
         )
+
+        $scope.likePost = function(postId) {
+            requester.postRequest('Posts/' + postId + '/likes', headers).then(
+                function(data) {
+                    $window.location.reload(true);
+                },
+                function(err) {
+                    console.log(err);
+                }
+            )
+        }
+        $scope.unlikePost = function(postId) {
+            requester.deleteRequest('Posts/' + postId + '/likes', headers).then(
+                function(data) {
+                    $window.location.reload(true);
+                },
+                function(err) {
+                    console.log(err);
+                }
+            )
+        }
+        $scope.likeComment = function(postId, commentId) {
+            requester.postRequest('posts/' + postId + '/comments/' + commentId + '/likes', headers).then(
+                function(data) {
+                    $window.location.reload(true);
+                },
+                function(err) {
+                    console.log(err);
+                }
+            );
+        }
+        $scope.unlikeComment = function(postId, commentId) {
+            requester.deleteRequest('posts/' + postId + '/comments/' + commentId + '/likes', headers).then(
+                function(data) {
+                    $window.location.reload(true);
+                },
+                function(err) {
+                    console.log(err);
+                }
+            );
+        }
         $scope.addComment = function(id, e) {
             console.log(e.srcElement.value)
 
@@ -47,7 +95,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
 
                 requester.postRequest('posts/' + id + '/comments', headers, data).then(
                     function(success) {
-                        console.log(success);
+                        $window.location.reload(true);
                     },
                     function(err) {
                         console.log(err);
@@ -70,20 +118,16 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
 
                 }
             );
-            console.log(headers);
         }
-
-        console.log('show login page')
     }
 });
-app.run(function($timeout) {
-    console.log('vliza')
+app.run(function($timeout, $window) {
     if(sessionStorage.entered === 'false') {
         $timeout(function () {
-            //sessionStorage.clear();
-            //$window.location.reload(true);
-            console.log('Ok')
-        }, 3000);
+            sessionStorage.clear();
+            $window.location.reload(true);
+
+        }, 31535999);
         sessionStorage.entered = true;
     }
 });

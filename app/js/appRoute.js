@@ -15,4 +15,8 @@ app.config(function($routeProvider){
         template: '',
         controller: 'WSNLogoutController'
     });
+    $routeProvider.when('/Settings', {
+        templateUrl: './templates/editProfileTemplate.html',
+        controller: 'WSNEdtProfileController'
+    });
 });

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>World Social Network</title>
 </head>
+
+<script src="lib/jquery-2.1.4.min.js"></script>
 <link rel="shortcut icon" href="img/world.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="lib/angular/angular.js"></script>
@@ -13,13 +15,35 @@
 <script src="js/controllers/RegisterController.js"></script>
 <script src="js/controllers/homePageController.js"></script>
 <script src="js/controllers/logoutController.js"></script>
+<script src="js/controllers/editProfileController.js"></script>
 <script src="js/requester.js"></script>
 <script src="js/appRoute.js"></script>
+<script src="lib/angular/angular-base64.min.js"></script>
+<style>
+    html{background:#84eeee;}
+    /* This only works with JavaScript,
+       if it's not present, don't show loader */
+    .no-js #loader { display: none;  }
+    .js #loader {  display: block; position: fixed; left: 50%; top: 50%; right:50%; bottom:50%; }
+
+</style>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="js/modernizr.js"></script>
+<script>
+    // Wait for window load
+    $(window).load(function() {
+        $('#loader').fadeOut(2000);
+    });
+
+</script>
 <body>
+<center>
+    <img src="img/loading-image.gif" id="loader">
+</center>
     <header ng-controller="WSNHomePageController">
         <div ng-show="isLogin" id="user-image">
             <img ng-src="{{image}}"/>
-            <span>{{username}}</span>
+            <span>{{name}}</span>
         </div>
         <ul>
             <li ng-repeat="data in headerData" ng-style="{'margin-left': margin}">
@@ -31,6 +55,7 @@
     <section>
         <ng-view></ng-view>
     </section>
+
     <footer>
         <h1><img src="img/world.png"/>World Social Network</h1>
     </footer>

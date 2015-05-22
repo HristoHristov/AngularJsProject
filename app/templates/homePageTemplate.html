@@ -51,46 +51,49 @@
 <section class="post" ng-repeat="userPost in posts">
     <article class="user-posts">
         <div class="user-image">
-            <img ng-if="userPost.wallOwner.profileImageData === null" ng-src="img/images.jpg">
-            <img ng-if="userPost.wallOwner.profileImageData !== null" ng-src="{{userPost.wallOwner.profileImageData}}">
+            <img ng-src="{{image}}">
         </div>
         <div class="comment-data">
             <div>{{userPost.author.name}}</div>
             <data>{{userPost.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
             <div class="like-unlike">
-                <img src="img/Facebook-Like.png">
-                <img src="img/393247899_dislike_answer_2_xlarge.png"/>
+                <img src="img/Facebook-Like.png" ng-click="likePost(userPost.id)">
+                <img src="img/393247899_dislike_answer_2_xlarge.png" ng-click="unlikePost(userPost.id)"/>
 
             </div>
         </div>
         <div class="post-content">{{userPost.postContent}}</div>
         <div class="like-post">
-            <img src="img/Facebook-Like.png"/>
+            <img src="img/Facebook-Like.png" ng-click="likePost(userPost.id)"/>
             <span>Likes: {{userPost.likesCount}}</span>
         </div>
 
     </article>
     <article class="comment">
-        <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comment: 24</span>
+        <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comments: {{userPost.comments.length}}</span>
         <div class="comment-image">
             <img ng-src="{{image}}"/>
-            <input type="search" ng-keyup="addComment(userPost.id, $event)"/>
-            <div class="like-unlike">
-                <img src="img/Facebook-Like.png">
-                <img src="img/393247899_dislike_answer_2_xlarge.png"/>
-            </div>
+            <input type="search" placeholder="Add Comment"ng-keyup="addComment(userPost.id, $event)"/>
             <span>Prese enter to Post!</span>
         </div>
         <div ng-show="userPost.comments.length > 0"class="user-comments" ng-repeat="userComment in userPost.comments">
             <div class="comment-image">
                 <img ng-src="{{image}}"/>
                 <div class="username-date">
-                    <span>Hristo</span>
-                    <data>10.10.2010</data>
+                    <span>{{userComment.author.name}}</span>
+                    <data>{{userComment.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
+                    <div class="like-unlike-comment">
+                        <img src="img/Facebook-Like.png" ng-click="likeComment(userPost.id, userComment.id)">
+                        <img src="img/393247899_dislike_answer_2_xlarge.png" ng-click="unlikeComment(userPost.id, userComment.id)"/>
+                    </div>
                 </div>
 
             </div>
             <div class="comment-content">{{userComment.commentContent}}</div>
+            <div class="like-post">
+                <img src="img/Facebook-Like.png" ng-click="likeComment(userPost.id, userComment.id)"/>
+                <span>Likes: {{userComment.likesCount}}</span>
+            </div>
         </div>
     </article>
 </section>
