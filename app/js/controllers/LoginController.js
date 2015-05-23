@@ -3,6 +3,8 @@ app.controller('WSNLoginController', function($scope, $window, $timeout, request
     $scope.username = '';
     $scope.password = '';
     console.log('login');
+    $scope.headerData = variables.headerData;
+    variables.hideLoaderImage();
     $scope.userLogin = function(){
         var data = {
             "username": $scope.username,
@@ -15,10 +17,8 @@ app.controller('WSNLoginController', function($scope, $window, $timeout, request
                 sessionStorage['expires_in'] = response.expires_in;
                 sessionStorage['userName'] = response.userName;
                 sessionStorage['entered'] = false;
-                var headers = {
-                    "Authorization" : sessionStorage.Authorization
-                };
-                requester.getRequest('me', headers).then(
+
+                requester.getRequest('me', variables.headers).then(
                     function(userData) {
                         console.log(userData)
 
@@ -38,4 +38,5 @@ app.controller('WSNLoginController', function($scope, $window, $timeout, request
             }
         )
     }
+
 });

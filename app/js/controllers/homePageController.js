@@ -6,10 +6,13 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
             {id: 'login', href: '#/Login', linkValue: 'Login'},
             {id: 'register', href: '#/Register', linkValue: 'Register'}
         ];
+
         $scope.headerData = navHeaderData;
         $window.location.assign('#/Login');
     }
     else {
+        $scope.users = [];
+        variables.showLoaderImage();
         if(sessionStorage.image === null) {
             $scope.image = "img/images.jpg";
         }
@@ -18,35 +21,44 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
         }
 
         $scope.name = sessionStorage.name;
-
-        $scope.margin = "115px";
+        $scope.user=""
+        $scope.margin = "10%";
         $scope.isLogin = true;
         $scope.post= '';
 
-        var navHeaderData = [
-            {id: 'home', href: '#/', linkValue: 'Home'},
-            {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friends Request'},
-            {id: 'settings', href: '#/Settings', linkValue: 'Settings'},
-            {id: 'logout', href: '#/Logout', linkValue: 'Logout'}
-        ];
-        $scope.headerData = navHeaderData;
-        var headers = {
-            "Authorization" : sessionStorage.Authorization
-        };
+
+        $scope.headerData = variables.headerData;
         var username = sessionStorage.userName;
-        requester.getRequest('users/'+ username + '/wall?StartPostId&PageSize=5', headers).then(
+
+        requester.getRequest('users/'+ username + '/wall?StartPostId&PageSize=5', variables.headers).then(
             function(response){
                 $scope.friendsRequest = 1;
                 console.log(response)
                 $scope.posts = response;
+                variables.hideLoaderImage();
             },
             function(error){
                 console.log(error);
             }
         )
-
+        $scope.searchUser = function(e) {
+            if(e.currentTarget.value.length === 0) {
+                $scope.users = [];
+            }
+            else {
+                requester.getRequest('users/search?searchTerm=' + e.currentTarget.value, variables.headers).then(
+                    function (success) {
+                        $scope.users = success;
+                        console.log(success)
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+            }
+        }
         $scope.likePost = function(postId) {
-            requester.postRequest('Posts/' + postId + '/likes', headers).then(
+            requester.postRequest('Posts/' + postId + '/likes', variables.headers).then(
                 function(data) {
                     $window.location.reload(true);
                 },
@@ -56,7 +68,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
             )
         }
         $scope.unlikePost = function(postId) {
-            requester.deleteRequest('Posts/' + postId + '/likes', headers).then(
+            requester.deleteRequest('Posts/' + postId + '/likes', variables.headers).then(
                 function(data) {
                     $window.location.reload(true);
                 },
@@ -66,7 +78,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
             )
         }
         $scope.likeComment = function(postId, commentId) {
-            requester.postRequest('posts/' + postId + '/comments/' + commentId + '/likes', headers).then(
+            requester.postRequest('posts/' + postId + '/comments/' + commentId + '/likes', variables.headers).then(
                 function(data) {
                     $window.location.reload(true);
                 },
@@ -76,7 +88,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
             );
         }
         $scope.unlikeComment = function(postId, commentId) {
-            requester.deleteRequest('posts/' + postId + '/comments/' + commentId + '/likes', headers).then(
+            requester.deleteRequest('posts/' + postId + '/comments/' + commentId + '/likes', variables.headers).then(
                 function(data) {
                     $window.location.reload(true);
                 },
@@ -93,7 +105,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
                     "commentContent": e.srcElement.value
                 };
 
-                requester.postRequest('posts/' + id + '/comments', headers, data).then(
+                requester.postRequest('posts/' + id + '/comments', variables.headers, data).then(
                     function(success) {
                         $window.location.reload(true);
                     },
@@ -109,7 +121,7 @@ app.controller('WSNHomePageController', function($scope, $window, requester){
                 "username": sessionStorage.userName
             };
 
-            requester.postRequest('Posts', headers, data).then(
+            requester.postRequest('Posts', variables.headers, data).then(
                 function(requester){
                     $window.location.reload(true);
                 },

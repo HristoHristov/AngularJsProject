@@ -16,6 +16,7 @@
 <script src="js/controllers/homePageController.js"></script>
 <script src="js/controllers/logoutController.js"></script>
 <script src="js/controllers/editProfileController.js"></script>
+<script src="js/controllers/friendWallController.js"></script>
 <script src="js/requester.js"></script>
 <script src="js/appRoute.js"></script>
 <script src="lib/angular/angular-base64.min.js"></script>
@@ -29,30 +30,14 @@
 </style>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="js/modernizr.js"></script>
-<script>
-    // Wait for window load
-    $(window).load(function() {
-        $('#loader').fadeOut(2000);
-    });
 
-</script>
 <body>
 <center>
     <img src="img/loading-image.gif" id="loader">
 </center>
-    <header ng-controller="WSNHomePageController">
-        <div ng-show="isLogin" id="user-image">
-            <img ng-src="{{image}}"/>
-            <span>{{name}}</span>
-        </div>
-        <ul>
-            <li ng-repeat="data in headerData" ng-style="{'margin-left': margin}">
-                <span  ng-if="data.id !== 'friend-request'" id="{{data.id}}"><a  href="{{data.href}}">{{data.linkValue}}</a></span>
-                <span ng-if="data.id === 'friend-request'" id="{{data.id}}"><a  href="{{data.href}}">Friends Request</a><div id="request" ng-show="friendsRequest > 0">{{friendsRequest}}</div></span>
-            </li>
-        </ul>
-    </header>
+
     <section>
+
         <ng-view></ng-view>
     </section>
 

@@ -1,3 +1,4 @@
+<header ng-include="'templates/header.html'"></header>
 <section id="friends">
     <h2>Friends</h2>
     <article>
@@ -39,8 +40,9 @@
         </div>
     </article>
 </section>
+{{sessionStorage.userName}}
 
-<section id="add-post">
+<section ng-show="showAddPost" id="add-post">
     <div class="user-image">
         <img ng-src="{{image}}">
     </div>
@@ -51,7 +53,7 @@
 <section class="post" ng-repeat="userPost in posts">
     <article class="user-posts">
         <div class="user-image">
-            <img ng-src="{{image}}">
+            <img ng-src="{{userPost.author.profileImageData}}">
         </div>
         <div class="comment-data">
             <div>{{userPost.author.name}}</div>
@@ -69,16 +71,16 @@
         </div>
 
     </article>
-    <article class="comment">
+    <article class="comment" ng-show="userPost.comments.length > 0 || showAddComment">
         <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comments: {{userPost.comments.length}}</span>
-        <div class="comment-image">
+        <div class="comment-image" ng-show="showAddComment">
             <img ng-src="{{image}}"/>
             <input type="search" placeholder="Add Comment"ng-keyup="addComment(userPost.id, $event)"/>
             <span>Prese enter to Post!</span>
         </div>
         <div ng-show="userPost.comments.length > 0"class="user-comments" ng-repeat="userComment in userPost.comments">
             <div class="comment-image">
-                <img ng-src="{{image}}"/>
+                <img ng-src="{{userComment.author.profileImageData}}"/>
                 <div class="username-date">
                     <span>{{userComment.author.name}}</span>
                     <data>{{userComment.date | date:"dd MMM yyyy HH:mm:ss"}}</data>

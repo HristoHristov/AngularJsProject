@@ -6,6 +6,7 @@ app.controller('WSNRegisterController', function($scope, $window, requester){
     $scope.repeatPass = '';
     $scope.email = '';
     $scope.gender = '';
+    $scope.headerData = variables.headerData;
 
     $scope.userRegister = function(){
         var data = {

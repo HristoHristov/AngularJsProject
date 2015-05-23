@@ -1,7 +1,6 @@
 app.controller('WSNEdtProfileController', function ($http, $window, $scope, $base64, requester) {
-    var headers = {
-        "Authorization" : sessionStorage.Authorization
-    };
+    variables.showLoaderImage();
+    $scope.headerData = variables.headerData;
     $scope.profileImage = null;
     $scope.uploadPicture = function (files) {
 
@@ -28,7 +27,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
             "gender": $scope.gender,
             "profileImageData": $scope.profileImage
         };
-        requester.putRequest('me', headers, data).then(
+        requester.putRequest('me', variables.headers, data).then(
             function(success) {
                 $window.location.reload(true);
             },
@@ -39,8 +38,9 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
     }
 
 
-    requester.getRequest('me', headers).then(
+    requester.getRequest('me', variables.headers).then(
         function (success) {
+            $scope.isLogin = true;
             $scope.name = success.name;
             $scope.email = success.email;
             $scope.username = success.username;
@@ -48,6 +48,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
             if(success.profileImageData !== null) {
                 $scope.profileImage = success.profileImageData;
                 $scope.image = success.profileImageData;
+                variables.hideLoaderImage();
             } else {
                 $scope.image = 'img/images.jpg';
             }

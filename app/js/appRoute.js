@@ -19,4 +19,8 @@ app.config(function($routeProvider){
         templateUrl: './templates/editProfileTemplate.html',
         controller: 'WSNEdtProfileController'
     });
+    $routeProvider.when('/FriendsWall/:username', {
+        templateUrl: './templates/friendsWallTemplate.html',
+        controller: 'WSNFriendWallController'
+    });
 });
