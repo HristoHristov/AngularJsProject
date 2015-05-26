@@ -23,4 +23,8 @@ app.config(function($routeProvider){
         templateUrl: './templates/friendsWallTemplate.html',
         controller: 'WSNFriendWallController'
     });
+    $routeProvider.when('/show-friend-list/:username', {
+        templateUrl: './templates/userFriendTemplate.html',
+        controller: 'WSNGetAllFriendsList'
+    });
 });

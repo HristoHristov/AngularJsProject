@@ -1,9 +1,17 @@
 <header ng-include="'templates/header.html'"></header>
 <div id="edit-profile">
     <div id="img">
+        <h2>Profile Image</h2>
         <img ng-src="{{image}}">
         <div class="upload">
             <input type="file" name="upload" value="Upload"onchange="angular.element(this).scope().uploadPicture(this.files)"/>/>
+        </div>
+    </div>
+    <div id="cover-image">
+        <h2>Cover Image</h2>
+        <img ng-src="{{coverImage}}">
+        <div class="upload">
+            <input type="file" name="upload" value="Upload"onchange="angular.element(this).scope().uploadCoverImage(this.files)"/>
         </div>
     </div>
     <div id="user-data">

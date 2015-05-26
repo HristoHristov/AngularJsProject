@@ -1,7 +1,9 @@
 var app = angular.module("wsn", ['ngRoute', 'base64']);
 var variables = {};
-variables.headers = {
-    "Authorization" : sessionStorage.Authorization
+variables.headers = function(){
+    return {
+        "Authorization" : sessionStorage.Authorization
+    }
 };
 variables.headerData = [
     {id: 'home', href: '#/', linkValue: 'Home'},

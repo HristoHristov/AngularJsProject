@@ -17,6 +17,7 @@
 <script src="js/controllers/logoutController.js"></script>
 <script src="js/controllers/editProfileController.js"></script>
 <script src="js/controllers/friendWallController.js"></script>
+<script src="js/controllers/showAllFriendsController.js"></script>
 <script src="js/requester.js"></script>
 <script src="js/appRoute.js"></script>
 <script src="lib/angular/angular-base64.min.js"></script>
@@ -39,7 +40,13 @@
     <section>
 
         <ng-view></ng-view>
+
     </section>
+<script>
+    $( document ).ajaxComplete(function() {
+       console.log('pesho')
+    });
+</script>
 
     <footer>
         <h1><img src="img/world.png"/>World Social Network</h1>

@@ -5,15 +5,27 @@
 <ul>
     <li ng-repeat="(index, value) in headerData" ng-style="{'margin-right': margin}">
         <span  ng-if="value.id !== 'friend-request'" id="{{value.id}}"><a  href="{{value.href}}">{{value.linkValue}}</a></span>
-        <span ng-if="value.id === 'friend-request'" id="{{value.id}}"><a  href="{{value.href}}">Friends Request</a><div id="request" ng-show="friendsRequest > 0">{{friendsRequest}}</div></span>
+        <span ng-if="value.id === 'friend-request'" id="{{value.id}}"><a  ng-click="showFriendRequest()" href="#/">Friends Request</a><div id="request" ng-show="friendsRequestCount > 0">{{friendsRequestCount}}</div></span>
 
     </li>
     <li ng-style="{'margin-right': margin}"><input type="search" ng-keyup="searchUser($event)"/></li>
 </ul>
+<button ng-show="showAddUserButton" id="add-friend" ng-click="addFriend(username)">Add Friend</button>
 <div ng-show="users.length > 0" id="search-friends">
     <div class="found-user" ng-repeat="user in users">
         <img ng-if="user.profileImageData === null" ng-src="img/images.jpg">
         <img ng-if="user.profileImageData !== null" ng-src="{{user.profileImageData}}">
         <span><a href="#/FriendsWall/{{user.username}}">{{user.name}}</a></span>
+    </div>
+</div>
+<div id="show-friend-request">
+    <div class="add-friend" ng-repeat="friendsRequest in friendsRequests">
+        <img ng-show="friendsRequest.user.profileImageData === null" ng-src="img/images.jpg">
+        <img ng-show="friendsRequest.user.profileImageData !== null" ng-src="{{friendsRequest.user.profileImageData}}">
+        <div>
+            <span>{{friendsRequest.user.name}}</span>
+            <img src="img/user_ok_man_male_profile_account_person_people-5121.png" ng-click="approveFriend(friendsRequest.id)">
+            <img src="img/user_remove_man_male_profile_account_person-5121.png" ng-click="rejectFriend(friendsRequest.id)">
+        </div>
     </div>
 </div>

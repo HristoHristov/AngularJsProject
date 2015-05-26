@@ -3,7 +3,7 @@
 <div>Please Log In to continue!</div>
 <form>
 <h2>{{title}}</h2>
-<input type="text" id="username" ng-model="username" placeholder="Username" name="username"/>
-<input type="password" id="password" ng-model="password" placeholder="Password" name="password"/>
-<input type="submit" ng-click="userLogin()" value="Login"/>
+<input type="text" id="username" ng-keyup="checkingUsername()" ng-model="username" placeholder="Username" name="username"/>
+<input type="password" id="password" ng-keyup="checkingPassword()" ng-model="password" placeholder="Password" name="password"/>
+<input ng-disabled="isDisabled" type="submit" ng-click="userLogin()" value="Login"/>
 </form>

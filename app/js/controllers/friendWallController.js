@@ -2,7 +2,7 @@ app.controller('WSNFriendWallController', function($scope, $http, $routeParams, 
     variables.showLoaderImage();
     console.log($routeParams.username);
 
-    requester.getRequest('users/' + $routeParams.username +'/wall?StartPostId&PageSize=5', variables.headers).then(
+    requester.getRequest('users/' + $routeParams.username +'/wall?StartPostId&PageSize=5', variables.headers()).then(
         function (success) {
             console.log(success);
             $scope.posts = success;
@@ -17,12 +17,23 @@ app.controller('WSNFriendWallController', function($scope, $http, $routeParams, 
             console.log(err);
         }
     );
+    $scope.addFriend = function(username) {
+        console.log(username);
+        requester.postRequest('me/requests/' + username, variables.headers(), {}).then(
+            function (success) {
+                console.log(success);
+            },
+            function (err) {
+                console.log(err);
+            }
+        )
+    }
     $scope.searchUser = function(e) {
         if(e.currentTarget.value.length === 0) {
             $scope.users = [];
         }
         else {
-            requester.getRequest('users/search?searchTerm=' + e.currentTarget.value, variables.headers).then(
+            requester.getRequest('users/search?searchTerm=' + e.currentTarget.value, variables.headers()).then(
                 function (success) {
                     $scope.users = success;
                 },

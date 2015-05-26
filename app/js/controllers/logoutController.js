@@ -1,9 +1,7 @@
 app.controller('WSNLogoutController', function($http, $window, requester){
     console.log('logout')
-    var headers = {
-        "Authorization" : sessionStorage.Authorization
-    };
-    requester.postRequest('users/logout', headers).then(
+
+    requester.postRequest('users/logout', variables.headers()).then(
         function(success){
             sessionStorage.clear();
             console.log(success)

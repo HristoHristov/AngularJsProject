@@ -19,15 +19,34 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
         fileReader.readAsDataURL($scope.getFile);
 
     }
+
+    $scope.uploadCoverImage = function(files) {
+        console.log(files)
+        var file = files[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent)
+        {
+
+            $scope.coverImageData = fileLoadedEvent.target.result;
+            var image = new Image();
+            image.src = $scope.coverImageData;
+            $('#cover-image img').attr('src', fileLoadedEvent.target.result)
+        }
+        fileReader.readAsDataURL(file);
+        console.log($scope.coverImageData)
+    }
     $scope.editProfile = function(){
-        console.log('edit')
         var data = {
             "name": $scope.name,
             "email": $scope.email,
             "gender": $scope.gender,
-            "profileImageData": $scope.profileImage
+            "profileImageData": $scope.profileImage,
+            "coverImageData": $scope.coverImageData
         };
-        requester.putRequest('me', variables.headers, data).then(
+
+        console.log('edit')
+        console.log(data)
+        requester.putRequest('me', variables.headers(), data).then(
             function(success) {
                 $window.location.reload(true);
             },
@@ -38,7 +57,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
     }
 
 
-    requester.getRequest('me', variables.headers).then(
+    requester.getRequest('me', variables.headers()).then(
         function (success) {
             $scope.isLogin = true;
             $scope.name = success.name;
@@ -48,11 +67,20 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
             if(success.profileImageData !== null) {
                 $scope.profileImage = success.profileImageData;
                 $scope.image = success.profileImageData;
+
                 variables.hideLoaderImage();
             } else {
                 $scope.image = 'img/images.jpg';
             }
+            if(success.coverImageData === null) {
+                $scope.coverImage = "img/bigstock-world-map-15989276.jpg";
+                $scope.coverImageData = null;
+            } else{
+                $scope.coverImage = success.coverImageData;
+                $scope.coverImageData = success.coverImageData;
+            }
             $scope.gender = success.gender;
+            console.log(success)
 
         },
         function (err) {

@@ -1,42 +1,11 @@
 <header ng-include="'templates/header.html'"></header>
 <section id="friends">
-    <h2>Friends</h2>
+    <h2><a href="#/show-friend-list/{{username}}">Friends</a></h2>
     <article>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>Zahari Nikolovfsdfsfsdfdsfsfadfa</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
-        </div>
-        <div>
-            <img src="{{image}}"/>
-            <span>HristoHristov</span>
+        <div ng-repeat="friend in friends">
+            <img ng-show="friend.profileImageData === null" ng-src="img/images.jpg"/>
+            <img ng-show="friend.profileImageData !== null" ng-src="{{friend.profileImageData}}"/>
+            <span>{{friend.name}}</span>
         </div>
     </article>
 </section>
@@ -52,25 +21,47 @@
 
 <section class="post" ng-repeat="userPost in posts">
     <article class="user-posts">
+        <img ng-click="deletePost(userPost.id)" class="delete-post" src="img/delete.png"/>
         <div class="user-image">
             <img ng-src="{{userPost.author.profileImageData}}">
         </div>
         <div class="comment-data">
-            <div>{{userPost.author.name}}</div>
+            <div class="show-user-preview-data"><a href="#/FriendsWall/{{userPost.author.username}}">{{userPost.author.name}}</a>
+                <div id="hover-profile" class="hover-profile" ng-init="genderString = ['Other', 'Male', Female]">
+                    <img ng-show="userPost.author.profileImageData === null" src="img/images.jpg">
+                    <img ng-show="userPost.author.profileImageData !== null" ng-src="{{userPost.author.profileImageData}}">
+                    <span>{{userPost.author.name}}</span>
+                    <div class="profile-data">
+                        <button ng-show="userPost.author.username != userPost.wallOwner.username && userPost.author.isFriend === false" >Add Friend</button>
+                        <button ng-show="userPost.author.username != sessionStorage.userName && userPost.author.isFriend === true">Friend</button>
+                        <div>{{genderString[userPost.author.gender]}}</div>
+                        <img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
+                        <img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">
+                        <img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">
+                    </div>
+
+                </div>
+            </div>
             <data>{{userPost.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
             <div class="like-unlike">
                 <img src="img/Facebook-Like.png" ng-click="likePost(userPost.id)">
                 <img src="img/393247899_dislike_answer_2_xlarge.png" ng-click="unlikePost(userPost.id)"/>
-
             </div>
         </div>
         <div class="post-content">{{userPost.postContent}}</div>
         <div class="like-post">
+            <span>Edit: </span>
+            <img src="img/drawing_pen.png" ng-click="showEditPost(userPost.id)">
             <img src="img/Facebook-Like.png" ng-click="likePost(userPost.id)"/>
             <span>Likes: {{userPost.likesCount}}</span>
-        </div>
 
+        </div>
     </article>
+        <textarea id="{{userPost.id}}" ng-init="postContent=userPost.postContent" ng-model="postContent" class="edit-post"></textarea>
+        <div class="button{{userPost.id}} button">
+            <button class="edit-button" ng-click="editPost(postContent, userPost.id)">Edit Post</button>
+            <button ng-click="hideEditPost(userPost.id)"class="cancel-button"></button>
+        </div>
     <article class="comment" ng-show="userPost.comments.length > 0 || showAddComment">
         <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comments: {{userPost.comments.length}}</span>
         <div class="comment-image" ng-show="showAddComment">
@@ -78,25 +69,55 @@
             <input type="search" placeholder="Add Comment"ng-keyup="addComment(userPost.id, $event)"/>
             <span>Prese enter to Post!</span>
         </div>
-        <div ng-show="userPost.comments.length > 0"class="user-comments" ng-repeat="userComment in userPost.comments">
+        <div ng-show="userPost.comments.length > 0" class="user-comments" ng-repeat="userComment in userPost.comments" ng-init="index=0">
             <div class="comment-image">
-                <img ng-src="{{userComment.author.profileImageData}}"/>
+                <img class="delete-comment" src="img/delete.png" ng-click="deleteComment(userPost.id, userComment.id)"/>
+                <img class="profile-image"ng-src="{{userComment.author.profileImageData}}"/>
                 <div class="username-date">
-                    <span>{{userComment.author.name}}</span>
+                    <span class="show-user-preview-data"><a href="#/FriendsWall/{{userComment.author.username}}">{{userComment.author.name}}</a>
+                        <div class="hover-profile white" ng-init="genderString = ['Other', 'Male', Female]">
+                            <img ng-show="userComment.author.profileImageData === null" src="img/images.jpg">
+                            <img ng-show="userComment.author.profileImageData !== null" ng-src="{{userComment.author.profileImageData}}">
+                            <span>{{userComment.author.name}}</span>
+                            <div class="profile-data">
+                                <button ng-show="userComment.author.username != userPost.wallOwner.username && userComment.author.isFriend === false" >Add Friend</button>
+                                <button ng-show="userComment.author.username != userPost.wallOwner.username && userComment.author.isFriend === true">Friend</button>
+                                <div>{{genderString[userComment.author.gender]}}</div>
+                                <img class="gender-image" ng-show="userComment.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
+                                <img class="gender-image" ng-show="userComment.author.gender === 2" src="img/home_female_symbol.png">
+                                <img class="gender-image" ng-show="userComment.author.gender === 0" src="img/cat-gender-2.png">
+                            </div>
+
+                        </div>
+                    </span>
                     <data>{{userComment.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
                     <div class="like-unlike-comment">
                         <img src="img/Facebook-Like.png" ng-click="likeComment(userPost.id, userComment.id)">
                         <img src="img/393247899_dislike_answer_2_xlarge.png" ng-click="unlikeComment(userPost.id, userComment.id)"/>
                     </div>
                 </div>
-
             </div>
+
             <div class="comment-content">{{userComment.commentContent}}</div>
             <div class="like-post">
+                <span>Edit: </span>
+                <img src="img/drawing_pen.png"  ng-init="commentContent=userComment.commentContent" ng-click="showEditComment(userComment.commentContent, userPost.id + '-comment', userComment.id)">
                 <img src="img/Facebook-Like.png" ng-click="likeComment(userPost.id, userComment.id)"/>
                 <span>Likes: {{userComment.likesCount}}</span>
             </div>
         </div>
     </article>
+    <textarea id="{{userPost.id + '-comment'}}" ng-show="userPost.comments.length > 0"  ng-model="commentContent" class="edit-post edit-comment"></textarea>
+    <div ng-show="userPost.comments.length > 0" id="button{{userPost.id + '-comment'}}" class="buttons-edit-comment">
+        <button class="edit-button" ng-click="editComment(userPost.id, commentContent)">Edit Post</button>
+        <button ng-click="hideEditComment(userPost.id + '-comment')"class="cancel-button"></button>
+    </div>
 </section>
+
+<ul id="pagination" ng-init="count=3">
+    <img ng-show="thisPageIndex > 1" id="first-page"src="img/006783-3d-transparent-glass-icon-arrows-double-arrowhead-left.png" ng-click="firstPage()"/>
+    <img src="img/006763-3d-transparent-glass-icon-arrows-arrowhead-solid-left.png" ng-click="previousPage()"/>
+    <li><a href="#/">{{thisPageIndex}}</a></li>
+    <img src="img/006764-3d-transparent-glass-icon-arrows-arrowhead-solid-right.png" ng-click="nextPage()"/>
+</ul>
 
