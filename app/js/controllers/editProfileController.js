@@ -1,4 +1,4 @@
-app.controller('WSNEdtProfileController', function ($http, $window, $scope, $base64, requester) {
+app.controller('WSNEdtProfileController', function ($http, $window, $rootScope, $controller, $scope, $base64, requester) {
     variables.showLoaderImage();
     $scope.headerData = variables.headerData;
     $scope.profileImage = null;
@@ -35,6 +35,37 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
         fileReader.readAsDataURL(file);
         console.log($scope.coverImageData)
     }
+    $scope.checkingEmail = function () {
+        variables.checkingInputData($scope.email, variables.emailRegex, 'email', '#email', 5);
+    }
+    $scope.checkingName = function () {
+        variables.checkingInputData($scope.name, variables.nameRegex, 'name', '#name', 5);
+    }
+    $rootScope.location = window.location.href;
+    var request = $controller('requests');
+    $scope.showFriendRequest = function() {
+        request.showFriendRequests();
+    }
+    $scope.searchUser = function(e) {
+        if(e.currentTarget.value.length === 0) {
+            $scope.users = [];
+        }
+        else {
+            request.searchUserByName(e).then(
+                function(sucess) {
+                    $scope.users = sucess;
+                }
+            )
+        }
+    }
+    request.getFriendRequests().then(
+        function (success) {
+            $scope.friendsRequests = success;
+            $scope.friendsRequestCount = success.length;
+            $rootScope.location = window.location.href;
+            console.log(success)
+        }
+    )
     $scope.editProfile = function(){
         var data = {
             "name": $scope.name,
@@ -55,7 +86,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
             }
         )
     }
-
+    $scope.margin = '6.65%'
 
     requester.getRequest('me', variables.headers()).then(
         function (success) {
@@ -68,7 +99,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
                 $scope.profileImage = success.profileImageData;
                 $scope.image = success.profileImageData;
 
-                variables.hideLoaderImage();
+
             } else {
                 $scope.image = 'img/images.jpg';
             }
@@ -81,7 +112,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $scope, $bas
             }
             $scope.gender = success.gender;
             console.log(success)
-
+            variables.hideLoaderImage();
         },
         function (err) {
             console.log(err);

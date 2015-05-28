@@ -15,8 +15,8 @@
         </div>
     </div>
     <div id="user-data">
-        <input type="email" id="email" ng-model="email">
-        <input type="text" id="name" ng-model="name">
+        <input type="text"  ng-keyup="checkingEmail()" id="email" ng-model="email">
+        <input type="text" ng-keyup="checkingName()" id="name" ng-model="name">
         <label for="female">Female</label>
         <input type="radio" ng-checked="gender === 2" value="2" id="female" ng-model="gender">
         <label for="male">Male</label>

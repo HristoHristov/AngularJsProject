@@ -1,45 +1,16 @@
 <header ng-include="'templates/header.html'"></header>
-<div class="friend-info">
-    <img src="img/images.jpg"/>
+{{searchUserByName}}
+<input type="search" id="searchUserByName" ng-keyup="searchUser()" placeholder="Search User by Name" ng-model="searchUserByName"/>
+
+<div ng-init="gender=['Other', 'Male', 'Female']" class="friend-info" ng-repeat="friend in friends">
+    <img ng-src="{{friend.profileImageData}}"/>
     <div class="friend-data">
-        <span>Male</span>
-        <img src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
+        <div class="friend-name">{{friend.name}}</div>
+        <span>Gender: </span>
+        <img class="gender-image" ng-show="friend.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
+        <img class="gender-image" ng-show="friend.gender === 2" src="img/home_female_symbol.png">
+        <img class="gender-image" ng-show="friend.gender === 0" src="img/cat-gender-2.png">
     </div>
-    <div class="friend-name">Hristo Hristov</div>
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">-->
-</div>
-<div class="friend-info">
-    <img src="img/images.jpg"/>
-    <div class="friend-data">
-        <span>Male</span>
-        <img src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
-    </div>
-    <div class="friend-name">Hristo Hristov</div>
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">-->
-</div>
-<div class="friend-info">
-    <img src="img/images.jpg"/>
-    <div class="friend-data">
-        <span>Male</span>
-        <img src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
-    </div>
-    <div class="friend-name">Hristo Hristov</div>
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">-->
-</div>
-<div class="friend-info">
-    <img src="img/images.jpg"/>
-    <div class="friend-data">
-        <span>Male</span>
-        <img src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
-    </div>
-    <div class="friend-name">Hristo Hristov</div>
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">-->
-    <!--<img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">-->
+
+
 </div>

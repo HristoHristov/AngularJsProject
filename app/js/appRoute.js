@@ -27,4 +27,8 @@ app.config(function($routeProvider){
         templateUrl: './templates/userFriendTemplate.html',
         controller: 'WSNGetAllFriendsList'
     });
+    $routeProvider.when('/Change-Password', {
+        templateUrl: './templates/changePasswordTemplaate.html',
+        controller: 'WSNChangeUserPassword'
+    });
 });

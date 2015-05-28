@@ -31,6 +31,10 @@ ul li #home:before {
 ul li #login:before {
     background-image: url("http://images.clipartpanda.com/key-outline-clipart-lock_key_lineart.png");
 }
+#change-password:before {
+    background-image: url("../img/key-outline-clipart-lock_key_lineart.png");
+    margin-left: 36%;
+}
 ul li #register:before, #friend-request:before {
     background-image: url("http://dec-uae.com/12/sign-up-icon-png-212.png");
     height: 28px;
@@ -60,7 +64,6 @@ ul li:first-of-type {
 }
 ul li {
     display: inline-block;
-    margin-right: 140px;
 }
 ul li input[type="search"] {
     margin: 0;
@@ -118,7 +121,7 @@ section {
     background-position-x: -2px;
     background-position-y: -5px;
 }
-#password, #rep-password {
+#password, #rep-password, #new-password {
     padding: 5px;
     background: white;
     background-color: white;
@@ -264,7 +267,7 @@ section .user-posts {
 }
 #add-post {
     width: 535px;
-    margin: 80px auto;
+    margin: 7% auto;
 }
 #add-post button {
     color: white;
@@ -309,12 +312,14 @@ data:after {
     vertical-align: top;
 }
 #friends {
+    margin: 8% 0;
     margin-left: 10px;
     background: white;
     width:305px;
-    height: 334px;
+    min-height: 70px;
+    height: auto;
     position: absolute;
-    margin-top: 20px;
+
 }
 #friends article {
     margin: 0;
@@ -332,6 +337,7 @@ data:after {
     position: absolute;
     font-size: 12px;
     text-align: center;
+    color: white;
 }
 #friends img {
     margin-top: 3px;
@@ -368,9 +374,10 @@ data:after {
     margin: 7px 5px;
 }
 .comment-image span {
-    margin-left: 65px;
+    margin: -5% 21%;
     display: inline-block;
     font-size: 12px;
+    vertical-align: top;
 }
 .comment-image .like-unlike {
     width: 30px;
@@ -647,21 +654,17 @@ margin: 30px 10px;
     margin: 10px 10px;
 }
 .friend-data span {
-    vertical-align: 15px;
+    vertical-align: 10px;
 }
 
-.friend-name {
-    position: absolute;
-    margin-top: -3%;
-    margin-left: 33px;
-}
+
 .friend-info {
     width: 30%;
     display: inline-block;
     margin-left: 3%;
 }
 .friend-info img {
-    width: 40%;
+    width: 33%;
     height: 150px;
 }
 .friend-data img {
@@ -671,7 +674,8 @@ margin: 30px 10px;
 .edit-post {
     display: none;
     width: 38%;
-    height: 400px;
+    height: auto;
+    min-height: 100px;
     margin: auto;
     background: white;
 }
@@ -726,4 +730,42 @@ textarea {
 .edit-comment {
     width: 35%;
     margin: 2% 36%;
+}
+.button-add-friend {
+    background: transparent;
+    width: 96%;
+    height: 30px;
+    border: 0;
+    background-image: url("../img/friedn_added-512.png");
+    background-size: 22% 100%;
+    background-repeat: no-repeat;
+    padding-left: 6%;
+}
+.friend {
+    padding-left: 3%;
+}
+#searchUserByName {
+    margin-left: 68%;
+    width: 15%;
+    height: 20px;
+}
+#show-friend {
+    text-decoration: none;
+    color: white;
+}
+body > section {
+    min-height: 700px;
+}
+.no-post {
+    display: inline-block;
+    width: 30%;
+    height: 100px;
+    padding: 5px;
+    background: white;
+    margin: 8% 38%;
+    text-align: center;
+}
+#add-comment-profile-image {
+    width: 17%;
+    height: 80px;
 }
