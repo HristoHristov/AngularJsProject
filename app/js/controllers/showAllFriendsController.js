@@ -39,6 +39,7 @@ app.controller('WSNGetAllFriendsList', function($scope, $rootScope, $controller,
             console.log(success)
         }
     )
+
     $scope.searchUserByName = '';
     $scope.margin = '6.65%';
     $scope.isLogin = true;

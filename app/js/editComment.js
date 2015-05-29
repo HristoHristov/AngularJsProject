@@ -1,4 +1,4 @@
-app.factory('editComment', function($window, requester) {
+app.factory('editComment', function($window, $timeout, requester) {
     function showEditComment(commentContent, index, id) {
         $('#' + index).show();
         $('#button' + index).show();
@@ -24,12 +24,21 @@ app.factory('editComment', function($window, requester) {
         )
     }
     function deleteComment(postId,commentId) {
-        requester.deleteRequest('posts/' + postId + '/comments/' + commentId, variables.headers()).then(
-            function (sucess) {
-                $window.location.reload(true);
-            },
-            function (err) {
-                console.log(err);
+        variables.showPrompt('Are you sure you want to delete comment?', null, 'warning', null, true, 'Delete',
+            function(isConfirm){
+                if (isConfirm) {
+                    requester.deleteRequest('posts/' + postId + '/comments/' + commentId, variables.headers()).then(
+                        function (sucess) {
+                            variables.showPrompt("Congratulations....", "Comment Deleted", "success", 1500);
+                            $timeout(function() {
+                                $window.location.reload(true);
+                            }, 2000)
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                    );
+                }
             }
         )
     }

@@ -8,7 +8,7 @@
         <span ng-if="value.id === 'friend-request'" id="{{value.id}}"><a  ng-click="showFriendRequest()" href="{{location}}">Friends Request</a><div id="request" ng-show="friendsRequestCount > 0">{{friendsRequestCount}}</div></span>
 
     </li>
-    <li ng-style="{'margin-right': margin}"><input type="search" ng-keyup="searchUser($event)"/></li>
+    <li ng-show="isLogin" ng-style="{'margin-right': margin}"><input type="search" ng-keyup="searchUser($event)"/></li>
 </ul>
 <button ng-show="showAddUserButton" id="add-friend" ng-click="addFriend(username)">Add Friend</button>
 <div ng-show="users.length > 0" id="search-friends">
@@ -29,3 +29,4 @@
         </div>
     </div>
 </div>
+<!--{{headerData}}-->

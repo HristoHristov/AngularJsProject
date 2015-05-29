@@ -5,13 +5,27 @@ variables.headers = function(){
         "Authorization" : sessionStorage.Authorization
     }
 };
-variables.headerData = [
-    {id: 'home', href: '#/', linkValue: 'Home'},
-    {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friends Request'},
-    {id: 'settings', href: '#/Settings', linkValue: 'Settings'},
-    {id: 'logout', href: '#/Logout', linkValue: 'Logout'},
-    {id: 'change-password', href: '#/Change-Password', linkValue: 'Edit Password'}
-];
+variables.headerData = function() {
+    if(sessionStorage.length > 0) {
+        var navHeaderData = [
+            {id: 'home', href: '#/', linkValue: 'Home'},
+            {id: 'news-feed', href: '#/News-Feed', linkValue: 'News Feed'},
+            {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friends Request'},
+            {id: 'settings', href: '#/Settings', linkValue: 'Settings'},
+            {id: 'change-password', href: '#/Change-Password', linkValue: 'Edit Password'},
+            {id: 'logout', href: '#/Logout', linkValue: 'Logout'}
+        ];
+        return navHeaderData;
+    }
+    else {
+        var navHeaderData = [
+            {id: 'home', href: '#/', linkValue: 'Home'},
+            {id: 'login', href: '#/Login', linkValue: 'Login'},
+            {id: 'register', href: '#/Register', linkValue: 'Register'}
+        ];
+        return navHeaderData;
+    }
+}
 variables.hideLoaderImage = function() {
     return $('#loader').fadeOut(2000);
 };
@@ -31,10 +45,12 @@ variables.showPrompt = function(title, text, type, timer, showCancelButton, conf
         text: text,
         type: type,
         timer: timer,
-        showCancelButton: false,
+        showCancelButton: showCancelButton,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: confirmButtonText,
-        closeOnConfirm: false
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false,
+        closeOnCancel: true
     },
         func
     );
@@ -55,5 +71,10 @@ variables.checkingInputData = function checkingInputData(data, regex,  objectKey
         if(Object.keys(inputDataValue).length === inputDataValueCount) {
             $('#input-submit').removeAttr('disabled');
         }
+    }
+}
+variables.checkingUserIsLogin = function() {
+    if(sessionStorage.length == 0){
+        window.location.assign('#/Login');
     }
 }

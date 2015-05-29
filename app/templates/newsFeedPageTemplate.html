@@ -59,11 +59,11 @@
 
         </div>
     </article>
-        <textarea id="{{userPost.id}}" ng-init="postContent=userPost.postContent" ng-model="postContent" class="edit-post"></textarea>
-        <div class="button{{userPost.id}} button">
-            <button class="edit-button" ng-click="editPost(postContent, userPost.id)">Edit Post</button>
-            <button ng-click="hideEditPost(userPost.id)"class="cancel-button"></button>
-        </div>
+    <textarea id="{{userPost.id}}" ng-init="postContent=userPost.postContent" ng-model="postContent" class="edit-post"></textarea>
+    <div class="button{{userPost.id}} button">
+        <button class="edit-button" ng-click="editPost(postContent, userPost.id)">Edit Post</button>
+        <button ng-click="hideEditPost(userPost.id)"class="cancel-button"></button>
+    </div>
     <article class="comment" ng-show="userPost.comments.length > 0 || showAddComment">
         <img class="img-comment" src="img/15674-illustration-of-a-cartoon-speech-bubble-pv.png"/><span class="comment-count">Comments: {{userPost.comments.length}}</span>
         <div class="comment-image" ng-show="showAddComment">
@@ -96,8 +96,8 @@
                     </span>
                     <data>{{userComment.date | date:"dd MMM yyyy HH:mm:ss"}}</data>
                     <div class="like-unlike-comment">
-                        <img src="img/Facebook-Like.png" ng-show="userComment.author.isFriend || userComment.author.username == loginUserUsername" ng-click="likeComment(userPost.id, userComment.id)">
-                        <img src="img/393247899_dislike_answer_2_xlarge.png" ng-show="userComment.author.isFriend || userComment.author.username == loginUserUsername" ng-click="unlikeComment(userPost.id, userComment.id)"/>
+                        <img src="img/Facebook-Like.png" ng-show="checkingIsFriends(userComment.author.username) || userComment.author.username === loginUserUsername" ng-click="likeComment(userPost.id, userComment.id)">
+                        <img src="img/393247899_dislike_answer_2_xlarge.png" ng-show="checkingIsFriends(userComment.author.username) || userComment.author.username === loginUserUsername" ng-click="unlikeComment(userPost.id, userComment.id)"/>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
             <div class="like-post">
                 <span ng-show="userComment.author.username === loginUserUsername">Edit: </span>
                 <img src="img/drawing_pen.png" ng-show="userComment.author.username === loginUserUsername" ng-init="commentContent=userComment.commentContent" ng-click="showEditComment(userComment.commentContent, userPost.id + '-comment', userComment.id)">
-                <img src="img/Facebook-Like.png" ng-show="userComment.author.isFriend || userComment.author.username === loginUserUsername" ng-click="likeComment(userPost.id, userComment.id)"/>
+                <img src="img/Facebook-Like.png" ng-show="checkingIsFriends(userComment.author.username) || userComment.author.username === loginUserUsername" ng-click="likeComment(userPost.id, userComment.id)"/>
                 <span>Likes: {{userComment.likesCount}}</span>
             </div>
         </div>

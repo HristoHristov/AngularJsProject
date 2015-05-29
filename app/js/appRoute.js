@@ -31,4 +31,8 @@ app.config(function($routeProvider){
         templateUrl: './templates/changePasswordTemplaate.html',
         controller: 'WSNChangeUserPassword'
     });
+    $routeProvider.when('/News-Feed', {
+        templateUrl: './templates/newsFeedPageTemplate.html',
+        controller: 'WSNNewsFeedPageController'
+    });
 });

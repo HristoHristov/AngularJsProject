@@ -1,11 +1,12 @@
 app.controller('WSNLoginController', function($scope, $rootScope, $controller, $window, $timeout, requester){
     $scope.title = "Login";
+    sessionStorage.clear();
     $scope.username = '';
     $scope.password = '';
     var request = $controller('requests');
-
+    $scope.margin = '26%'
     console.log('login');
-    $scope.headerData = variables.headerData;
+    $scope.headerData = variables.headerData();
     $rootScope.$on('$includeContentLoaded', function() {
         $('#input-submit').attr('disabled','disabled');
     });

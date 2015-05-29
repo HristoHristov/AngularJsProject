@@ -1,4 +1,5 @@
 app.controller('WSNRegisterController', function($scope, $rootScope, $window, requester){
+    sessionStorage.clear();
     $scope.title = "Register"
     $scope.username = '';
     $scope.name = '';
@@ -39,8 +40,11 @@ app.controller('WSNRegisterController', function($scope, $rootScope, $window, re
             function(response){
                 sessionStorage['Authorization'] = response.token_type + ' ' + response.access_token;
                 sessionStorage['userName'] = response.userName;
-                $window.location.assign('#/');
-                $window.location.reload(true);
+                variables.showPrompt("Congratulations....", "Register successful", "success", 1500);
+                $timeout(function() {
+                    $window.location.assign('#/');
+                    $window.location.reload(true);
+                }, 2000)
             },
             function (error) {
                 console.log(error);

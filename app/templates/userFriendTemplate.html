@@ -1,8 +1,8 @@
 <header ng-include="'templates/header.html'"></header>
 {{searchUserByName}}
-<input type="search" id="searchUserByName" ng-keyup="searchUser()" placeholder="Search User by Name" ng-model="searchUserByName"/>
+<input type="search" id="searchUserByName"  placeholder="Search User by Name" ng-model="filterBy.name"/>
 
-<div ng-init="gender=['Other', 'Male', 'Female']" class="friend-info" ng-repeat="friend in friends">
+<div ng-init="gender=['Other', 'Male', 'Female']" class="friend-info" ng-repeat="friend in friends | filter:filterBy">
     <img ng-src="{{friend.profileImageData}}"/>
     <div class="friend-data">
         <div class="friend-name">{{friend.name}}</div>

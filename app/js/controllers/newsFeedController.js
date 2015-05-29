@@ -1,4 +1,4 @@
-app.controller('WSNHomePageController', function($scope, $controller, $rootScope, $window, $location, editPost, editComment, requester){
+app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootScope, $window, $location, editPost, editComment, requester){
     $scope.image = "img/images.jpg";
     var request = $controller('requests');
     $scope.headerData = variables.headerData();
@@ -42,6 +42,7 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
     var username = sessionStorage.userName;
     request.getFriendRequests().then(
         function (success) {
+
             $scope.friendsRequests = success;
             $scope.friendsRequestCount = success.length;
             $rootScope.location = window.location.href;
@@ -50,13 +51,26 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
     )
     request.getMyFriend().then(
         function (success) {
+            console.log(success)
             $scope.friends = success;
         }
     );
+    $scope.checkingIsFriends = function(username) {
+        var isFriend = false;
+        console.log('vliza')
+        for(var i in $scope.friends) {
+            console.log($scope.friends[i].username)
+            if($scope.friends[i].username === username) {
+                isFriend = true;
+            }
+        }
+        return isFriend;
+    }
 
-    request.getUserWall(username, '').then(
+    request.getNewsFeedPage('').then(
         function (response) {
             if(response.length > 0) {
+                console.log(response)
                 $scope.posts = response;
                 lastPostId.push(response[response.length - 1].id)
                 console.log(lastPostId);
@@ -64,15 +78,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
             variables.hideLoaderImage();
         }
     )
-    $scope.showEditPost = function(index){
-        editPost.showEditPost(index);
-    }
-    $scope.hideEditPost = function(index){
-        editPost.hideEditPost(index);
-    }
-    $scope.editPost = function(postContent, index) {
-        editPost.editPost(postContent, index);
-    }
     $scope.showEditComment = function(commentContent, index, id) {
         editComment.showEditComment(commentContent, index, id);
         $scope.commentContent = commentContent;
@@ -86,9 +91,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
     }
     $scope.deleteComment = function(postId,commentId) {
         editComment.deleteComment(postId, commentId);
-    }
-    $scope.deletePost = function(id) {
-        request.deletePost(id);
     }
     $scope.approveFriend = function(id) {
         request.approveFriend(id);
@@ -126,12 +128,9 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
     $scope.addComment = function(id, e) {
         request.addComment(id, e);
     }
-    $scope.addPost = function(post){
-       request.addPost(post);
-    }
     $scope.nextPage = function() {
         PostId = lastPostId[$scope.thisPageIndex];
-        request.getUserWall(username, PostId).then(
+        request.getNewsFeedPage(PostId).then(
             function (response) {
                 if(response.length > 0) {
                     lastPostId.push(response[response.length - 1].id);
@@ -148,7 +147,7 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
             lastPostId.splice($scope.thisPageIndex, 1);
             $scope.thisPageIndex--;
             PostId = lastPostId[$scope.thisPageIndex -1];
-            request.getUserWall(username, PostId).then(
+            request.getNewsFeedPage(PostId).then(
                 function (response) {
                     $scope.posts = response;
                     console.log(response);
@@ -163,7 +162,7 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
             lastPostId.splice(2, lastPostId.length - 2);
             $scope.thisPageIndex = 1;
             PostId = lastPostId[$scope.thisPageIndex -1];
-            request.getUserWall(username, PostId).then(
+            request.getNewsFeedPage(PostId).then(
                 function (response) {
                     $scope.posts = response;
                     console.log(response);
@@ -172,5 +171,4 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
             )
         }
     }
-
 });

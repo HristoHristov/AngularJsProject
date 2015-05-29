@@ -1,4 +1,4 @@
-app.controller('WSNEdtProfileController', function ($http, $window, $rootScope, $controller, $scope, $base64, requester) {
+app.controller('WSNEdtProfileController', function ($http, $window, $timeout, $rootScope, $controller, $scope, $base64, requester) {
     variables.showLoaderImage();
     $scope.headerData = variables.headerData;
     $scope.profileImage = null;
@@ -79,7 +79,11 @@ app.controller('WSNEdtProfileController', function ($http, $window, $rootScope, 
         console.log(data)
         requester.putRequest('me', variables.headers(), data).then(
             function(success) {
-                $window.location.reload(true);
+                variables.showPrompt("Congratulations....", "Edit Profile successful", "success", 1500);
+                $timeout(function() {
+                    $window.location.assign('#/');
+                    $window.location.reload(true);
+                }, 2000)
             },
             function(err) {
                 console.log(err);

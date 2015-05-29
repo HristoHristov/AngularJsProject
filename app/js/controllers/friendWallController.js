@@ -1,8 +1,8 @@
 app.controller('WSNFriendWallController', function($scope, $rootScope, $controller, $http, $routeParams, editPost, editComment, requester) {
     $scope.isLogin = true;
     $scope.showAddPost = false;
-    $scope.headerData = variables.headerData;
-    $scope.margin = '6.65%';
+    $scope.headerData = variables.headerData();
+    $scope.margin = '6%';
     $scope.loginUserUsername = sessionStorage.userName;
     variables.showLoaderImage();
     var request = $controller('requests');
@@ -57,6 +57,7 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
                 $scope.hasFriends = success.isFriend;
                 $scope.showAddPost = $scope.hasFriends;
                 $scope.showAddUserButton = success.isFriend ===false && sessionStorage.userName !== $routeParams.username;
+                $scope.friends = [];
                 if($scope.hasFriends == true) {
                     console.log('friend')
                     request.getUserFriends($routeParams.username).then(
@@ -147,11 +148,6 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
             console.log(success)
         }
     )
-    request.getUserFriends($routeParams.username).then(
-        function (success) {
-            $scope.friends = success;
-        }
-    );
     $scope.approveFriend = function(id) {
         request.approveFriend(id);
     }

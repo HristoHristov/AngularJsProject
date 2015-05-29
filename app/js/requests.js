@@ -76,14 +76,24 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         return defer.promise;
     }
     this.deletePost = function(id) {
-        requester.deleteRequest('Posts/' + id, variables.headers()).then(
-            function (sucess) {
-                $window.location.reload(true);
-            },
-            function (err) {
-                console.log(err);
+        variables.showPrompt('Are you sure you want to delete post?', null, 'warning', null, true, 'Delete',
+            function(isConfirm){
+                if (isConfirm) {
+                    requester.deleteRequest('Posts/' + id, variables.headers()).then(
+                        function (success) {
+                            variables.showPrompt("Congratulations....", "Post Deleted", "success", 1500);
+                            $timeout(function() {
+                                $window.location.reload(true);
+                            }, 2000)
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                    )
+                }
             }
         )
+
     }
     this.getFriendRequests = function() {
         var defer = $q.defer();
@@ -176,7 +186,10 @@ app.controller('requests', function($q, $window, $timeout, requester) {
 
             requester.postRequest('posts/' + id + '/comments', variables.headers(), data).then(
                 function(success) {
-                    $window.location.reload(true);
+                    variables.showPrompt("Congratulations....", "Comment added", "success", 1500);
+                    $timeout(function() {
+                        $window.location.reload(true);
+                    }, 2000)
                 },
                 function(err) {
                     console.log(err);
@@ -192,7 +205,10 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         console.log('vliza')
         requester.postRequest('Posts', variables.headers(), data).then(
             function(requester){
-                $window.location.reload(true);
+                variables.showPrompt("Congratulations....", "Post added", "success", 1500);
+                $timeout(function() {
+                    $window.location.reload(true);
+                }, 2000)
             },
             function (error) {
                 console.log(error);
@@ -224,6 +240,18 @@ app.controller('requests', function($q, $window, $timeout, requester) {
 
             function (err) {
                 console.log(err);
+            }
+        );
+        return defer.promise;
+    }
+    this.getNewsFeedPage = function(postId) {
+        var defer = $q.defer()
+        requester.getRequest('me/feed?StartPostId=' + postId +'&PageSize=5', variables.headers()).then(
+            function (success) {
+                defer.resolve(success);
+            },
+            function (err) {
+                console.log(err)
             }
         );
         return defer.promise;
