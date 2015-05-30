@@ -4,9 +4,11 @@
     <div ng-show="friends.length === 0">No Friends</div>
     <article ng-show="friends.length > 0">
         <div ng-repeat="friend in friends">
-            <img ng-show="friend.profileImageData === null" ng-src="img/images.jpg"/>
-            <img ng-show="friend.profileImageData !== null" ng-src="{{friend.profileImageData}}"/>
-            <span>{{friend.name}}</span>
+            <a href="#/FriendsWall/{{friend.username}}">
+                <img ng-show="friend.profileImageData === null" ng-src="img/images.jpg"/>
+                <img ng-show="friend.profileImageData !== null" ng-src="{{friend.profileImageData}}"/>
+                <span>{{friend.name}}</span>
+            </a>
         </div>
     </article>
 </section>

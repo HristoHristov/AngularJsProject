@@ -1,6 +1,8 @@
 app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootScope, $window, $location, editPost, editComment, requester){
     $scope.image = "img/images.jpg";
+    $scope.commentsCount = 3;
     var request = $controller('requests');
+
     $scope.headerData = variables.headerData();
     console.log($scope.headerData)
     $scope.loginUserUsername = sessionStorage.userName;
@@ -127,6 +129,9 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
     }
     $scope.addComment = function(id, e) {
         request.addComment(id, e);
+    }
+    $scope.addFriend = function(username) {
+        request.addFriend(username);
     }
     $scope.nextPage = function() {
         PostId = lastPostId[$scope.thisPageIndex];

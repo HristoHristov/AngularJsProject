@@ -34,12 +34,12 @@
                     <img ng-show="userPost.author.profileImageData !== null" ng-src="{{userPost.author.profileImageData}}">
                     <span>{{userPost.author.name}}</span>
                     <div class="profile-data">
-                        <button ng-show="userPost.author.username != userPost.wallOwner.username && userPost.author.isFriend === false" >Add Friend</button>
-                        <button ng-show="userPost.author.username != sessionStorage.userName && userPost.author.isFriend === true">Friend</button>
                         <div>{{genderString[userPost.author.gender]}}</div>
                         <img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
                         <img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">
                         <img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">
+                        <button ng-show="userPost.author.username != userPost.wallOwner.username && userPost.author.isFriend === false" >Add Friend</button>
+                        <button ng-show="userPost.author.username != sessionStorage.userName && userPost.author.isFriend === true">Friend</button>
                     </div>
 
                 </div>
@@ -71,8 +71,8 @@
             <input type="search" placeholder="Add Comment"ng-keyup="addComment(userPost.id, $event)"/>
             <span>Prese enter to Post!</span>
         </div>
-        <div ng-show="userPost.comments.length > 0" class="user-comments" ng-repeat="userComment in userPost.comments" ng-init="index=0">
-            <div class="comment-image">
+        <div ng-show="userPost.comments.length > 0" class="user-comments" ng-repeat="(i, userComment) in userPost.comments" ng-init="index=0">
+            <div ng-hide="i >= commentsCount" class="comment-image">
                 <img class="delete-comment" ng-show="userComment.author.username === loginUserUsername" src="img/delete.png" ng-click="deleteComment(userPost.id, userComment.id)"/>
                 <img class="profile-image" ng-show="userComment.author.profileImageData === null" src="img/images.jpg">
                 <img class="profile-image" ng-show="userComment.author.profileImageData !== null" ng-src="{{userComment.author.profileImageData}}">
@@ -84,12 +84,12 @@
                             <img ng-show="userComment.author.profileImageData !== null" ng-src="{{userComment.author.profileImageData}}">
                             <span>{{userComment.author.name}}</span>
                             <div class="profile-data">
-                                <button ng-show="userComment.author.username != userPost.wallOwner.username && userComment.author.isFriend === false" >Add Friend</button>
-                                <button ng-show="userComment.author.username != userPost.wallOwner.username && userComment.author.isFriend === true">Friend</button>
                                 <div>{{genderString[userComment.author.gender]}}</div>
                                 <img class="gender-image" ng-show="userComment.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
                                 <img class="gender-image" ng-show="userComment.author.gender === 2" src="img/home_female_symbol.png">
                                 <img class="gender-image" ng-show="userComment.author.gender === 0" src="img/cat-gender-2.png">
+                                <button ng-click="addFriend(userComment.author.username)" ng-hide="checkingIsFriends(userComment.author.username)  || userComment.author.username === loginUserUsername" >Add Friend</button>
+                                <button ng-show="checkingIsFriends(userComment.author.username)">Friend</button>
                             </div>
 
                         </div>
@@ -101,15 +101,15 @@
                     </div>
                 </div>
             </div>
-
-            <div class="comment-content">{{userComment.commentContent}}</div>
-            <div class="like-post">
+            <div ng-hide="i >= commentsCount" class="comment-content">{{userComment.commentContent}}</div>
+            <div ng-hide="i >= commentsCount" class="like-post">
                 <span ng-show="userComment.author.username === loginUserUsername">Edit: </span>
                 <img src="img/drawing_pen.png" ng-show="userComment.author.username === loginUserUsername" ng-init="commentContent=userComment.commentContent" ng-click="showEditComment(userComment.commentContent, userPost.id + '-comment', userComment.id)">
                 <img src="img/Facebook-Like.png" ng-show="checkingIsFriends(userComment.author.username) || userComment.author.username === loginUserUsername" ng-click="likeComment(userPost.id, userComment.id)"/>
                 <span>Likes: {{userComment.likesCount}}</span>
             </div>
         </div>
+        <div ng-show="userPost.comments.length >= 3">Show all comments</div>
     </article>
     <textarea id="{{userPost.id + '-comment'}}" ng-show="userPost.comments.length > 0"  ng-model="commentContent" class="edit-post edit-comment"></textarea>
     <div ng-show="userPost.comments.length > 0" id="button{{userPost.id + '-comment'}}" class="buttons-edit-comment">

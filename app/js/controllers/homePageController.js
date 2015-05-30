@@ -1,5 +1,6 @@
 app.controller('WSNHomePageController', function($scope, $controller, $rootScope, $window, $location, editPost, editComment, requester){
     $scope.image = "img/images.jpg";
+    variables.checkingUserIsLogin();
     var request = $controller('requests');
     $scope.headerData = variables.headerData();
     console.log($scope.headerData)

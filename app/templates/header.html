@@ -13,8 +13,8 @@
 <button ng-show="showAddUserButton" id="add-friend" ng-click="addFriend(username)">Add Friend</button>
 <div ng-show="users.length > 0" id="search-friends">
     <div class="found-user" ng-repeat="user in users">
-        <img ng-if="user.profileImageData == 'null'" ng-src="img/images.jpg">
-        <img ng-if="user.profileImageData != 'null'" ng-src="{{user.profileImageData}}">
+        <img ng-if="user.profileImageData == null" ng-src="img/images.jpg">
+        <img ng-if="user.profileImageData != null" ng-src="{{user.profileImageData}}">
         <span><a href="#/FriendsWall/{{user.username}}">{{user.name}}</a></span>
     </div>
 </div>
@@ -24,8 +24,12 @@
         <img ng-show="friendsRequest.user.profileImageData !== null" ng-src="{{friendsRequest.user.profileImageData}}">
         <div>
             <span>{{friendsRequest.user.name}}</span>
-            <img src="img/user_ok_man_male_profile_account_person_people-5121.png" ng-click="approveFriend(friendsRequest.id)">
-            <img src="img/user_remove_man_male_profile_account_person-5121.png" ng-click="rejectFriend(friendsRequest.id)">
+            <label for="approve" ng-click="approveFriend(friendsRequest.id)">
+            <img id="approve" src="img/user_ok_man_male_profile_account_person_people-5121.png" ng-click="approveFriend(friendsRequest.id)">
+            Aprove</label>
+            <label for="reject" ng-click="rejectFriend(friendsRequest.id)">
+            <img id="reject" src="img/user_remove_man_male_profile_account_person-5121.png">
+            Reject</label>
         </div>
     </div>
 </div>

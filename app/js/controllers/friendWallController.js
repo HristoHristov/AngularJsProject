@@ -156,15 +156,7 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
     }
 
     $scope.addFriend = function(username) {
-        console.log(username);
-        requester.postRequest('me/requests/' + username, variables.headers(), {}).then(
-            function (success) {
-                console.log(success);
-            },
-            function (err) {
-                console.log(err);
-            }
-        )
+        request.addFriend(username);
     }
     $scope.searchUser = function(e) {
         if(e.currentTarget.value.length === 0) {

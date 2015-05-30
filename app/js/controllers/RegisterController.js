@@ -1,4 +1,4 @@
-app.controller('WSNRegisterController', function($scope, $rootScope, $window, requester){
+app.controller('WSNRegisterController', function($scope, $rootScope, $timeout, $window, requester){
     sessionStorage.clear();
     $scope.title = "Register"
     $scope.username = '';

@@ -2,9 +2,27 @@ app.controller('WSNChangeUserPassword', function ($scope, $controller, $rootScop
     $rootScope.$on('$includeContentLoaded', function() {
         $('#input-submit').attr('disabled','disabled');
     });
-    $scope.headerData = variables.headerData;
+    var request = $controller('requests');
+    request.getInfoForMe().then(
+        function (sucess) {
+            if(sessionStorage['image'] !== 'null' && sessionStorage['image'] !== null) {
+                $scope.image = sessionStorage['image'];
+            }
+            $scope.username = sessionStorage.userName;
+            sessionStorage.image == 'null' ? $scope.loginUserImage = 'img/images.jpg' : $scope.loginUserImage = sessionStorage.image;
+            $scope.name = sessionStorage.name;
+            if(sessionStorage.coverImage != 'null' ) {
+                console.log(sessionStorage.coverImage)
+                var style = '<style>header::before{background-image: url("' + sessionStorage.coverImage + '");}</style>'
+
+                $('header').append(style)
+            }
+        }
+    )
+    $scope.isLogin = true;
+    $scope.headerData = variables.headerData();
     $scope.change = 'change';
-    $scope.margin = '6.65%';
+    $scope.margin = '6%';
     $rootScope.location = window.location.href;
     $scope.oldPassword = '';
     $scope.newPassword = '';

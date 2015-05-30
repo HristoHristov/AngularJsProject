@@ -41,9 +41,9 @@ app.controller('WSNGetAllFriendsList', function($scope, $rootScope, $controller,
     )
 
     $scope.searchUserByName = '';
-    $scope.margin = '6.65%';
+    $scope.margin = '6%';
     $scope.isLogin = true;
-    $scope.headerData = variables.headerData;
+    $scope.headerData = variables.headerData();
     variables.hideLoaderImage();
     $scope.showFriendRequest = function() {
         request.showFriendRequests();

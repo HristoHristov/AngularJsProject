@@ -239,6 +239,8 @@ section .user-posts {
 }
 .post-content {
     margin-left: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #request {
     text-align: center;
@@ -526,7 +528,7 @@ margin: 30px 10px;
     color: white;
 }
 #show-friend-request {
-    width: 214px;
+    width: 25%;
     background: linear-gradient(#44c1ef, #012a3a, #44c1ef, #012a3a);
     height: 200px;
     margin-left: 20.5%;
@@ -537,8 +539,15 @@ margin: 30px 10px;
 }
 .add-friend {
     margin: 6px;
-    width: 185px;
+    width: 93%;
     height: 100px;
+}
+label {
+    color: white;
+    font-size: 18px;
+    vertical-align: 6px;
+    margin-left: 4px;
+    margin-right: 10px;
 }
 .add-friend img {
     height: 100px;

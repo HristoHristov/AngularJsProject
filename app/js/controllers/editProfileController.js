@@ -1,6 +1,6 @@
 app.controller('WSNEdtProfileController', function ($http, $window, $timeout, $rootScope, $controller, $scope, $base64, requester) {
     variables.showLoaderImage();
-    $scope.headerData = variables.headerData;
+    $scope.headerData = variables.headerData();
     $scope.profileImage = null;
     $scope.uploadPicture = function (files) {
 
@@ -90,7 +90,7 @@ app.controller('WSNEdtProfileController', function ($http, $window, $timeout, $r
             }
         )
     }
-    $scope.margin = '6.65%'
+    $scope.margin = '6%'
 
     requester.getRequest('me', variables.headers()).then(
         function (success) {
@@ -117,6 +117,12 @@ app.controller('WSNEdtProfileController', function ($http, $window, $timeout, $r
             $scope.gender = success.gender;
             console.log(success)
             variables.hideLoaderImage();
+            if(sessionStorage.coverImage != 'null' ) {
+                console.log(sessionStorage.coverImage)
+                var style = '<style>header::before{background-image: url("' + sessionStorage.coverImage + '");}</style>'
+
+                $('header').append(style)
+            }
         },
         function (err) {
             console.log(err);

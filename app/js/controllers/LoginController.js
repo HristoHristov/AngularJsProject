@@ -36,7 +36,7 @@ app.controller('WSNLoginController', function($scope, $rootScope, $controller, $
                 }, 2000)
             },
             function(error){
-                console.log(error);
+                variables.showPrompt("Ooooppppppssss....", "Invalid username or password", "error", 1500);
             }
         )
     }

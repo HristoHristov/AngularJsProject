@@ -256,4 +256,18 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         );
         return defer.promise;
     }
+    this.addFriend = function(username) {
+        console.log(username);
+        requester.postRequest('me/requests/' + username, variables.headers(), {}).then(
+            function (success) {
+                variables.showPrompt("Congratulations....", "Sent Friend Request", "success", 1500);
+                $timeout(function() {
+                    $window.location.reload(true);
+                }, 2000)
+            },
+            function (err) {
+                console.log(err);
+            }
+        )
+    }
 });
