@@ -10,7 +10,8 @@ app.controller('WSNRegisterController', function($scope, $rootScope, $timeout, $
     $rootScope.$on('$includeContentLoaded', function() {
         $('#input-submit').attr('disabled','disabled');
     });
-    $scope.headerData = variables.headerData;
+    $scope.headerData = variables.headerData();
+    $scope.margin = '26%';
     variables.hideLoaderImage()
     $scope.checkingUsername = function(){
         variables.checkingInputData($scope.username, variables.usernameRegex, 'username', '#username', 5);

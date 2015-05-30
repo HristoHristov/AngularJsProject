@@ -1,7 +1,7 @@
 <header ng-include="'templates/header.html'"></header>
 <section id="friends">
     <h2><a id="show-friend" href="#/show-friend-list/{{username}}">Friends: {{friends.length}}</a></h2>
-    <div ng-show="friends.length === 0">No Friends</div>
+    <div id="no-friends" ng-show="friends.length === 0">No Friends</div>
     <article ng-show="friends.length > 0">
         <div ng-repeat="friend in friends">
             <a href="#/FriendsWall/{{friend.username}}">
@@ -36,12 +36,12 @@
                     <img ng-show="userPost.author.profileImageData !== null" ng-src="{{userPost.author.profileImageData}}">
                     <span>{{userPost.author.name}}</span>
                     <div class="profile-data">
-                        <button ng-show="userPost.author.username != userPost.wallOwner.username && userPost.author.isFriend === false" >Add Friend</button>
-                        <button ng-show="userPost.author.username != sessionStorage.userName && userPost.author.isFriend === true">Friend</button>
                         <div>{{genderString[userPost.author.gender]}}</div>
                         <img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
                         <img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">
                         <img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">
+                        <button ng-click="addFriend(userPost.author.username)" ng-hide="checkingIsFriends(userPost.author.username)  || userComment.author.username === loginUserUsername" >Add Friend</button>
+                        <button ng-show="checkingIsFriends(userPost.author.username)">Friend</button>
                     </div>
 
                 </div>
@@ -86,12 +86,12 @@
                             <img ng-show="userComment.author.profileImageData !== null" ng-src="{{userComment.author.profileImageData}}">
                             <span>{{userComment.author.name}}</span>
                             <div class="profile-data">
-                                <button ng-show="userComment.author.username != userPost.wallOwner.username && userComment.author.isFriend === false" >Add Friend</button>
-                                <button ng-show="userComment.author.username != userPost.wallOwner.username && userComment.author.isFriend === true">Friend</button>
                                 <div>{{genderString[userComment.author.gender]}}</div>
                                 <img class="gender-image" ng-show="userComment.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
                                 <img class="gender-image" ng-show="userComment.author.gender === 2" src="img/home_female_symbol.png">
                                 <img class="gender-image" ng-show="userComment.author.gender === 0" src="img/cat-gender-2.png">
+                                <button ng-click="addFriend(userComment.author.username)" ng-hide="checkingIsFriends(userComment.author.username)  || userComment.author.username === loginUserUsername" >Add Friend</button>
+                                <button ng-show="checkingIsFriends(userComment.author.username)">Friend</button>
                             </div>
 
                         </div>

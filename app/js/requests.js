@@ -197,10 +197,10 @@ app.controller('requests', function($q, $window, $timeout, requester) {
             )
         }
     }
-    this.addPost = function(postContent) {
+    this.addPost = function(postContent, username) {
         var data = {
             "postContent": postContent,
-            "username": sessionStorage.userName
+            "username": username
         };
         console.log('vliza')
         requester.postRequest('Posts', variables.headers(), data).then(
@@ -269,5 +269,16 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                 console.log(err);
             }
         )
+    }
+    this.checkingIsFriend = function(username, friendArr) {
+        var isFriend = false;
+        console.log('vliza')
+        for(var i in friendArr) {
+            console.log(friendArr[i].username)
+            if(friendArr[i].username === username) {
+                isFriend = true;
+            }
+        }
+        return isFriend;
     }
 });

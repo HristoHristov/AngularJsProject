@@ -1,6 +1,6 @@
 app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootScope, $window, $location, editPost, editComment, requester){
     $scope.image = "img/images.jpg";
-    $scope.commentsCount = 3;
+    $scope.posts = [];
     var request = $controller('requests');
 
     $scope.headerData = variables.headerData();
@@ -58,15 +58,8 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
         }
     );
     $scope.checkingIsFriends = function(username) {
-        var isFriend = false;
-        console.log('vliza')
-        for(var i in $scope.friends) {
-            console.log($scope.friends[i].username)
-            if($scope.friends[i].username === username) {
-                isFriend = true;
-            }
-        }
-        return isFriend;
+         var result = request.checkingIsFriend(username, $scope.friends);
+         return result;
     }
 
     request.getNewsFeedPage('').then(

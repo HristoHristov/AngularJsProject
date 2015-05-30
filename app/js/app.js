@@ -11,7 +11,7 @@ variables.headerData = function() {
             {id: 'home', href: '#/', linkValue: 'Home'},
             {id: 'news-feed', href: '#/News-Feed', linkValue: 'News Feed'},
             {id: 'friend-request', href: '#/Friend-Request', linkValue: 'Friends Request'},
-            {id: 'settings', href: '#/Settings', linkValue: 'Settings'},
+            {id: 'settings', href: '#/Settings', linkValue: 'Profile'},
             {id: 'change-password', href: '#/Change-Password', linkValue: 'Edit Password'},
             {id: 'logout', href: '#/Logout', linkValue: 'Logout'}
         ];

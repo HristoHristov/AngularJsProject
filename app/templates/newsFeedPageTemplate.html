@@ -1,24 +1,20 @@
 <header ng-include="'templates/header.html'"></header>
 <section id="friends">
     <h2><a id="show-friend" href="#/show-friend-list/{{username}}">Friends: {{friends.length}}</a></h2>
-    <div ng-show="friends.length === 0">No Friends</div>
+    <div id="no-friends" ng-show="friends.length === 0">No Friends</div>
     <article ng-show="friends.length > 0">
         <div ng-repeat="friend in friends">
-            <img ng-show="friend.profileImageData === null" ng-src="img/images.jpg"/>
-            <img ng-show="friend.profileImageData !== null" ng-src="{{friend.profileImageData}}"/>
-            <span>{{friend.name}}</span>
+            <a href="#/FriendsWall/{{friend.username}}">
+                <img ng-show="friend.profileImageData === null" ng-src="img/images.jpg"/>
+                <img ng-show="friend.profileImageData !== null" ng-src="{{friend.profileImageData}}"/>
+                <span>{{friend.name}}</span>
+            </a>
         </div>
     </article>
 </section>
-{{post}}
-
-<section ng-show="showAddPost" id="add-post">
-    <div class="user-image">
-        <img ng-src="{{loginUserImage}}">
-    </div>
-    <textarea placeholder="Add Post" ng-show="isLogin" ng-model="post"></textarea>
-    <button ng-click="addPost(post)">Add Post</button>
-</section>
+<!--<article class="user-posts">-->
+    <!--<div id="no-posts">No Posts!</div>-->
+<!--</article>-->
 <section class="no-post" ng-show="posts.length ===0">No Posts:</section>
 <section class="post" ng-repeat="userPost in posts">
     <article class="user-posts">
@@ -38,8 +34,8 @@
                         <img class="gender-image" ng-show="userPost.author.gender === 1"src="img/017853-blue-jelly-icon-symbols-shapes-male-symbol1-sc48.png">
                         <img class="gender-image" ng-show="userPost.author.gender === 2" src="img/home_female_symbol.png">
                         <img class="gender-image" ng-show="userPost.author.gender === 0" src="img/cat-gender-2.png">
-                        <button ng-show="userPost.author.username != userPost.wallOwner.username && userPost.author.isFriend === false" >Add Friend</button>
-                        <button ng-show="userPost.author.username != sessionStorage.userName && userPost.author.isFriend === true">Friend</button>
+                        <button ng-click="addFriend(userPost.author.username)" ng-hide="checkingIsFriends(userPost.author.username)  || userComment.author.username === loginUserUsername" >Add Friend</button>
+                        <button ng-show="checkingIsFriends(userPost.author.username)">Friend</button>
                     </div>
 
                 </div>

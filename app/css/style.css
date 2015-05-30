@@ -6,6 +6,7 @@
 body {
     background: linear-gradient(269deg, #7D7D7D, white, #7D7D7D, white);
     height: auto;
+    min-height: 900px;
 }
 ul {
     height: auto;
@@ -100,7 +101,7 @@ body > header > ul > li:nth-child(6) > span{
 form {
     margin: 50px auto;
     background: linear-gradient(#012a3a, #44c1ef, #012a3a, #44c1ef);
-    width: 400px;
+    width: 32%;
     padding-bottom: 10px;
 
 }
@@ -158,6 +159,9 @@ input[type="radio"]{
 body > section > ng-view > form > label:nth-child(7) {
     margin-left: 50px;
 }
+body > section > ng-view > section:nth-child(4) > article.user-posts {
+    margin-top: 8%;
+}
 h2 {
     width: 100%;
     display: inline-block;
@@ -210,7 +214,7 @@ body > section > ng-view > div {
     margin-left: 15px;
     display: inline-block;
     vertical-align: top;
-    color: white;
+    color: rgb(225,225,256);
 }
 section .user-posts {
     background: white;
@@ -321,32 +325,31 @@ data:after {
     margin: 8% 0;
     margin-left: 10px;
     background: white;
-    width:305px;
+    width: 21.1%;
     min-height: 70px;
-    height: auto;
+    height: 217px;
     position: absolute;
 
 }
 #friends article {
     margin: 0;
-    padding-left: 5px;
-    width: 97%;
+    width: 100%;
 }
 #friends article div {
     display: inline-block;
+    height: 95px;
 }
 #friends article span {
     margin-top: -25px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 95px;
-    position: absolute;
+    display: block;
     font-size: 12px;
     text-align: center;
-    color: white;
+    color: grey;
 }
 #friends img {
-    margin-top: 3px;
     width: 95px;
     height: 95px;
 }
@@ -422,6 +425,8 @@ data:after {
 }
 .comment-content {
     margin-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .like-unlike-comment img {
     width: 20px;
@@ -474,7 +479,7 @@ div.upload {
 #edit-profile {
     margin: 80px auto;
     padding: 30px;
-    width: 45%;
+    width: 50%;
     height: 270px;
     background: linear-gradient(#012a3a, #44c1ef, #012a3a, #44c1ef);
 
@@ -482,12 +487,13 @@ div.upload {
 #user-data {
     margin-left: 10px;
     margin-top: 6%;
+    width: 42%;
 }
 #search-friends {
     width: 214px;
     background: white;
    height: 200px;
-    margin-left: 69.5%;
+    margin-left: 76.1%;
     margin-top: -19px;
     position: absolute;
     overflow-x: auto;
@@ -767,7 +773,7 @@ textarea {
     color: white;
 }
 body > section {
-    min-height: 700px;
+    min-height: 870px;
 }
 .no-post {
     display: inline-block;
@@ -781,4 +787,11 @@ body > section {
 #add-comment-profile-image {
     width: 17%;
     height: 80px;
+}
+a {
+    text-decoration: none;
+}
+#no-friends {
+    margin-top: 5%;
+    text-align: center;
 }

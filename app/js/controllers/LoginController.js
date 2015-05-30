@@ -4,7 +4,7 @@ app.controller('WSNLoginController', function($scope, $rootScope, $controller, $
     $scope.username = '';
     $scope.password = '';
     var request = $controller('requests');
-    $scope.margin = '26%'
+    $scope.margin = '26%';
     console.log('login');
     $scope.headerData = variables.headerData();
     $rootScope.$on('$includeContentLoaded', function() {
