@@ -4,8 +4,11 @@ app.controller('WSNLoginController', function($scope, $rootScope, $controller, $
     $scope.username = '';
     $scope.password = '';
     var request = $controller('requests');
-    $scope.margin = '26%';
-    console.log('login');
+    if(screen.width === 1024) {
+        $scope.margin = '23%';
+    }else {
+        $scope.margin = '26%';
+    }
     $scope.headerData = variables.headerData();
     $rootScope.$on('$includeContentLoaded', function() {
         $('#input-submit').attr('disabled','disabled');
@@ -24,7 +27,6 @@ app.controller('WSNLoginController', function($scope, $rootScope, $controller, $
         }
         requester.postRequest('users/Login', {}, data).then(
             function(response){
-                console.log(response)
                 sessionStorage['Authorization'] = response.token_type + ' ' + response.access_token;
                 sessionStorage['expires_in'] = response.expires_in;
                 sessionStorage['userName'] = response.userName;

@@ -11,10 +11,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                     sessionStorage['coverImage'] = userData.coverImageData;
 
                     defer.resolve(userData)
-                },
-                function (err) {
-                    console.log(err);
-
                 }
             )
             return defer.promise;
@@ -24,9 +20,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         requester.getRequest('me/friends', variables.headers()).then(
             function (success) {
                 defer.resolve(success)
-            },
-            function (err) {
-                console.log(err)
             }
         );
         return defer.promise;
@@ -36,9 +29,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         requester.getRequest('users/'+ username + '/wall?StartPostId=' + PostId + '&PageSize=5', variables.headers()).then(
             function(response){
                 defer.resolve(response);
-            },
-            function(error){
-                console.log(error);
             }
         );
         return defer.promise;
@@ -64,13 +54,9 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         requester.getRequest('users/search?searchTerm=' + e.currentTarget.value, variables.headers()).then(
             function (success) {
                 users = success;
-                defer.resolve(success)
-                console.log(success)
+                defer.resolve(success);
                 $('ul li input').css('background-image', 'none');
 
-            },
-            function (err) {
-                console.log(err);
             }
         )
         return defer.promise;
@@ -87,7 +73,7 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                             }, 2000)
                         },
                         function (err) {
-                            console.log(err);
+                            variables.showPrompt("Cannot delete post", "error", 2000);
                         }
                     )
                 }
@@ -97,29 +83,23 @@ app.controller('requests', function($q, $window, $timeout, requester) {
     }
     this.getFriendRequests = function() {
         var defer = $q.defer();
-        requester.getRequest('me/requests', variables.headers()).then(function (success) {
+        requester.getRequest('me/requests', variables.headers()).then(
+            function (success) {
                 defer.resolve(success)
-            },function (err) {
-                console.log(err);
             }
         );
         return defer.promise;
     }
     this.approveFriend = function(id) {
-        console.log('approve' + id);
         requester.putRequest('me/requests/' + id + '?status=approved', variables.headers()).then(function (success) {
                 $window.location.reload(true);
-            },function (err) {
-                console.log(err);
             }
         );
     }
     this.rejectFriend = function(id) {
-        console.log('reject' + id);
-        requester.putRequest('me/requests/' + id + '?status=rejected', variables.headers()).then(function (success) {
+        requester.putRequest('me/requests/' + id + '?status=rejected', variables.headers()).then(
+            function (success) {
                 $window.location.reload(true);
-            },function (err) {
-                console.log(err);
             }
         );
     }
@@ -131,9 +111,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                     $window.location.reload(true);
                 }, 2000)
 
-            },
-            function(err) {
-                console.log(err);
             }
         )
     }
@@ -144,9 +121,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                 $timeout(function() {
                     $window.location.reload(true);
                 }, 2000)
-            },
-            function(err) {
-                console.log(err);
             }
         )
     }
@@ -157,9 +131,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                 $timeout(function() {
                     $window.location.reload(true);
                 }, 2000)
-            },
-            function(err) {
-                console.log(err);
             }
         );
     }
@@ -170,15 +141,10 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                 $timeout(function() {
                     $window.location.reload(true);
                 }, 2000)
-            },
-            function(err) {
-                console.log(err);
             }
         );
     }
     this.addComment = function(id, e) {
-        console.log(e.currentTarget.value)
-
         if(e.keyCode == '13') {
             var data = {
                 "commentContent": e.currentTarget.value
@@ -192,7 +158,7 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                     }, 2000)
                 },
                 function(err) {
-                    console.log(err);
+                    variables.showPrompt("Cannot add Comment", "error", 2500);
                 }
             )
         }
@@ -202,17 +168,12 @@ app.controller('requests', function($q, $window, $timeout, requester) {
             "postContent": postContent,
             "username": username
         };
-        console.log('vliza')
         requester.postRequest('Posts', variables.headers(), data).then(
             function(requester){
                 variables.showPrompt("Congratulations....", "Post added", "success", 1500);
                 $timeout(function() {
                     $window.location.reload(true);
                 }, 2000)
-            },
-            function (error) {
-                console.log(error);
-
             }
         );
     }
@@ -223,9 +184,6 @@ app.controller('requests', function($q, $window, $timeout, requester) {
                 variables.hideLoaderImage();
 
                 defer.resolve(success);
-            },
-            function (err) {
-                console.log(err);
             }
         );
         return defer.promise;
@@ -234,12 +192,7 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         var defer = $q.defer();
         requester.getRequest('users/' + username + '/friends', variables.headers()).then(
             function (friends) {
-                console.log(friends);
                 defer.resolve(friends);
-            },
-
-            function (err) {
-                console.log(err);
             }
         );
         return defer.promise;
@@ -249,32 +202,23 @@ app.controller('requests', function($q, $window, $timeout, requester) {
         requester.getRequest('me/feed?StartPostId=' + postId +'&PageSize=5', variables.headers()).then(
             function (success) {
                 defer.resolve(success);
-            },
-            function (err) {
-                console.log(err)
             }
         );
         return defer.promise;
     }
     this.addFriend = function(username) {
-        console.log(username);
         requester.postRequest('me/requests/' + username, variables.headers(), {}).then(
             function (success) {
                 variables.showPrompt("Congratulations....", "Sent Friend Request", "success", 1500);
                 $timeout(function() {
                     $window.location.reload(true);
                 }, 2000)
-            },
-            function (err) {
-                console.log(err);
             }
         )
     }
     this.checkingIsFriend = function(username, friendArr) {
         var isFriend = false;
-        console.log('vliza')
         for(var i in friendArr) {
-            console.log(friendArr[i].username)
             if(friendArr[i].username === username) {
                 isFriend = true;
             }

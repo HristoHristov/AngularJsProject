@@ -11,7 +11,11 @@ app.controller('WSNRegisterController', function($scope, $rootScope, $timeout, $
         $('#input-submit').attr('disabled','disabled');
     });
     $scope.headerData = variables.headerData();
-    $scope.margin = '26%';
+    if(screen.width === 1024) {
+        $scope.margin = '23%';
+    }else {
+        $scope.margin = '26%';
+    }
     variables.hideLoaderImage()
     $scope.checkingUsername = function(){
         variables.checkingInputData($scope.username, variables.usernameRegex, 'username', '#username', 5);
@@ -48,7 +52,7 @@ app.controller('WSNRegisterController', function($scope, $rootScope, $timeout, $
                 }, 2000)
             },
             function (error) {
-                console.log(error);
+                variables.showPrompt("Invalid params", "error", 2000);
             }
         );
 

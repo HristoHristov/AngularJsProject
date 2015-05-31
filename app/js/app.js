@@ -67,7 +67,6 @@ variables.checkingInputData = function checkingInputData(data, regex,  objectKey
     else {
         $(elementId).css('border', '2px solid #AC1');
         inputDataValue[objectKey] = data;
-        console.log(Object.keys(inputDataValue).length)
         if(Object.keys(inputDataValue).length === inputDataValueCount) {
             $('#input-submit').removeAttr('disabled');
         }
@@ -77,4 +76,15 @@ variables.checkingUserIsLogin = function() {
     if(sessionStorage.length == 0){
         window.location.assign('#/Login');
     }
+}
+variables.checkingResultion = function() {
+    var margin = 0;
+
+    if(screen.width === 1024) {
+        margin = '3%';
+    }else {
+        margin = '6%';
+    }
+
+    return margin;
 }

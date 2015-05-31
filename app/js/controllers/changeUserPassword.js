@@ -5,14 +5,14 @@ app.controller('WSNChangeUserPassword', function ($scope, $controller, $rootScop
     var request = $controller('requests');
     request.getInfoForMe().then(
         function (sucess) {
-            if(sessionStorage['image'] !== 'null' && sessionStorage['image'] !== null) {
+            $scope.image = 'img/images.jpg';
+            if(sessionStorage['image'] != 'null') {
                 $scope.image = sessionStorage['image'];
             }
             $scope.username = sessionStorage.userName;
             sessionStorage.image == 'null' ? $scope.loginUserImage = 'img/images.jpg' : $scope.loginUserImage = sessionStorage.image;
             $scope.name = sessionStorage.name;
             if(sessionStorage.coverImage != 'null' ) {
-                console.log(sessionStorage.coverImage)
                 var style = '<style>header::before{background-image: url("' + sessionStorage.coverImage + '");}</style>'
 
                 $('header').append(style)
@@ -22,7 +22,7 @@ app.controller('WSNChangeUserPassword', function ($scope, $controller, $rootScop
     $scope.isLogin = true;
     $scope.headerData = variables.headerData();
     $scope.change = 'change';
-    $scope.margin = '6%';
+    $scope.margin = variables.checkingResultion();
     $rootScope.location = window.location.href;
     $scope.oldPassword = '';
     $scope.newPassword = '';
@@ -33,7 +33,6 @@ app.controller('WSNChangeUserPassword', function ($scope, $controller, $rootScop
             $scope.friendsRequests = success;
             $scope.friendsRequestCount = success.length;
             $rootScope.location = window.location.href;
-            console.log(success)
         }
     )
     $scope.showFriendRequest = function() {
@@ -52,19 +51,15 @@ app.controller('WSNChangeUserPassword', function ($scope, $controller, $rootScop
         }
     }
     $scope.checkingOldPassword = function() {
-        console.log($scope.oldPassword);
         variables.checkingInputData($scope.oldPassword, variables.passwordRegex, 'password', '#password', 3)
     }
     $scope.checkingNewPassword = function() {
-        console.log($scope.newPassword);
         variables.checkingInputData($scope.newPassword, variables.passwordRegex, 'newPassword', '#new-password', 3)
     }
     $scope.checkingRepeatPassword = function() {
-        console.log($scope.repeatPassword);
         variables.checkingInputData($scope.repeatPassword, $scope.newPassword, 'repeatPassword', '#rep-password', 3)
     }
     $scope.changePassword = function() {
-        console.log('change')
         var data = {
             "oldPassword" : $scope.oldPassword,
             "newPassword" : $scope.newPassword,
@@ -72,10 +67,17 @@ app.controller('WSNChangeUserPassword', function ($scope, $controller, $rootScop
         };
         requester.putRequest('me/changepassword', variables.headers(), data).then(
             function (sucess) {
-                console.log(sucess);
+                variables.showPrompt("Congratulations....", "Change Profile password successful", "success", 1500);
+                $timeout(function() {
+                    $window.location.assign('#/');
+                    $window.location.reload(true);
+                }, 2000)
             },
             function (err) {
-                console.log(err)
+                variables.showPrompt("Incorrect Image type", "error");
+                $timeout(function() {
+                    $window.location.reload(true);
+                }, 2000)
             }
         )
     }

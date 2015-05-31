@@ -1,8 +1,6 @@
 app.controller('WSNGetAllFriendsList', function($scope, $rootScope, $controller, $routeParams, requester) {
-    console.log('vliza');
     $rootScope.location = window.location.href;
     var request = $controller('requests');
-    console.log($routeParams.username);
     if(sessionStorage.image == 'null') {
         $scope.image = "img/images.jpg";
     }
@@ -13,21 +11,13 @@ app.controller('WSNGetAllFriendsList', function($scope, $rootScope, $controller,
         requester.getRequest('me/friends', variables.headers()).then(
             function (success) {
                 $scope.friends = success;
-                console.log(success);
-            },
-            function (err) {
-                console.log(err)
             }
-        )
+        );
     }
     else {
         requester.getRequest('users/' + $routeParams.username + '/friends', variables.headers()).then(
             function (success) {
                 $scope.friends = success;
-                console.log(success);
-            },
-            function (err) {
-                console.log(err)
             }
         )
     }
@@ -36,12 +26,11 @@ app.controller('WSNGetAllFriendsList', function($scope, $rootScope, $controller,
             $scope.friendsRequests = success;
             $scope.friendsRequestCount = success.length;
             $rootScope.location = window.location.href;
-            console.log(success)
         }
     )
 
     $scope.searchUserByName = '';
-    $scope.margin = '6%';
+    $scope.margin = variables.checkingResultion();
     $scope.isLogin = true;
     $scope.headerData = variables.headerData();
     variables.hideLoaderImage();

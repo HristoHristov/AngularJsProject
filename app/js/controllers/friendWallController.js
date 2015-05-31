@@ -1,9 +1,8 @@
 app.controller('WSNFriendWallController', function($scope, $rootScope, $controller, $http, $routeParams, editPost, editComment, requester) {
     $scope.isLogin = true;
-    console.log(app.myFriends)
     $scope.showAddPost = false;
     $scope.headerData = variables.headerData();
-    $scope.margin = '6%';
+    $scope.margin = variables.checkingResultion();
     $scope.loginUserUsername = sessionStorage.userName;
     variables.showLoaderImage();
     var request = $controller('requests');
@@ -15,13 +14,11 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
     lastPostId.push(PostId);
     $scope.thisPageIndex = 1;
     var username = $routeParams.username;
-    console.log($routeParams.username);
     $scope.checkingIsFriends = function(username) {
         var result = request.checkingIsFriend(username, JSON.parse(sessionStorage.myFriend));
         return result;
     }
     $scope.addPost = function(post){
-        console.log(post)
         request.addPost(post, $routeParams.username);
     }
     $scope.showEditPost = function(index) {
@@ -35,10 +32,8 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
     }
     request.getUserWall($routeParams.username, '').then(
         function (success) {
-            console.log(success);
             $scope.posts = [];
             if(success.length > 0) {
-                console.log(success)
                 $scope.posts = success;
                 $scope.showAddComment = success[0].wallOwner.isFriend;
                 lastPostId.push(success[success.length - 1].id)
@@ -54,7 +49,6 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
     sessionStorage.image == 'null' ? $scope.loginUserImage = 'img/images.jpg' : $scope.loginUserImage = sessionStorage.image;
     request.getInfoForUser($routeParams.username).then(
         function (success) {
-            console.log(success)
                 success.profileImageData === null ? $scope.image = "img/images.jpg" : $scope.image = success.profileImageData;
                 $scope.coverImage = success.coverImageData;
                 $scope.name = success.name;
@@ -64,7 +58,6 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
                 $scope.showAddUserButton = success.isFriend ===false && sessionStorage.userName !== $routeParams.username;
                 $scope.friends = [];
                 if($scope.hasFriends == true) {
-                    console.log('friend')
                     request.getUserFriends($routeParams.username).then(
                         function (friends) {
                             $scope.friends = friends;
@@ -77,13 +70,10 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
         PostId = lastPostId[$scope.thisPageIndex];
         request.getUserWall(username, PostId).then(
             function (response) {
-                console.log(response.length)
                 if(response.length > 0) {
                     lastPostId.push(response[response.length - 1].id);
                     $scope.thisPageIndex++;
                     $scope.posts = response;
-                    console.log(response);
-                    console.log(lastPostId);
                 }
             }
         )
@@ -96,8 +86,6 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
             request.getUserWall(username, PostId).then(
                 function (response) {
                     $scope.posts = response;
-                    console.log(response);
-                    console.log(lastPostId);
                 }
             )
         }
@@ -111,8 +99,6 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
             request.getUserWall(username, PostId).then(
                 function (response) {
                     $scope.posts = response;
-                    console.log(response);
-                    console.log(lastPostId);
                 }
             )
         }
@@ -151,7 +137,6 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
             $scope.friendsRequests = success;
             $scope.friendsRequestCount = success.length;
             $rootScope.location = window.location.href;
-            console.log(success)
         }
     )
     $scope.approveFriend = function(id) {
@@ -177,6 +162,4 @@ app.controller('WSNFriendWallController', function($scope, $rootScope, $controll
         }
     }
     app.myFriends = $scope.friends;
-
-
 })

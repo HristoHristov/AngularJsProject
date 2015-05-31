@@ -12,7 +12,6 @@
         </div>
     </article>
 </section>
-{{post}}
 
 <section ng-show="showAddPost" id="add-post">
     <div class="user-image">
@@ -21,9 +20,9 @@
     <textarea placeholder="Add Post" ng-show="isLogin" ng-model="post"></textarea>
     <button ng-click="addPost(post)">Add Post</button>
 </section>
-<section class="no-post" ng-show="posts.length ===0">No Posts:</section>
+<section class="no-post"  ng-show="posts.length ===0">No Posts:</section>
 <section class="post" ng-repeat="userPost in posts">
-    <article class="user-posts">
+    <article class="user-posts" ng-style="showAddPost == false && {'margin-top': '8%'}">
         <img ng-click="deletePost(userPost.id)" ng-show="userPost.author.username === loginUserUsername" class="delete-post" src="img/delete.png"/>
         <div class="user-image">
             <img ng-show="userPost.author.profileImageData !== null" ng-src="{{userPost.author.profileImageData}}">

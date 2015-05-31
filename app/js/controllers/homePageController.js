@@ -3,10 +3,10 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
         $window.location.assign('#/Login');
         $window.location.reload(true);
     } else {
+        $scope.margin = variables.checkingResultion();
         $scope.image = "img/images.jpg";
         var request = $controller('requests');
         $scope.headerData = variables.headerData();
-        console.log($scope.headerData)
         $scope.loginUserUsername = sessionStorage.userName;
 
         request.getInfoForMe().then(
@@ -18,7 +18,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
                 sessionStorage.image == 'null' ? $scope.loginUserImage = 'img/images.jpg' : $scope.loginUserImage = sessionStorage.image;
                 $scope.name = sessionStorage.name;
                 if(sessionStorage.coverImage != 'null' ) {
-                    console.log(sessionStorage.coverImage)
                     var style = '<style>header::before{background-image: url("' + sessionStorage.coverImage + '");}</style>'
 
                     $('header').append(style)
@@ -30,7 +29,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
         $scope.name = sessionStorage.name;
         $scope.user=""
         $scope.isLogin = true;
-        $scope.margin = '6%';
         $scope.post= '';
         $scope.showAddUserButton = false;
         $scope.isFirstPage = true;
@@ -49,7 +47,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
                 $scope.friendsRequests = success;
                 $scope.friendsRequestCount = success.length;
                 $rootScope.location = window.location.href;
-                console.log(success)
             }
         )
         request.getMyFriend().then(
@@ -64,7 +61,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
                 if(response.length > 0) {
                     $scope.posts = response;
                     lastPostId.push(response[response.length - 1].id)
-                    console.log(lastPostId);
                 }
                 variables.hideLoaderImage();
             }
@@ -146,8 +142,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
                         lastPostId.push(response[response.length - 1].id);
                         $scope.thisPageIndex++;
                         $scope.posts = response;
-                        console.log(response);
-                        console.log(lastPostId);
                     }
                 }
             )
@@ -160,8 +154,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
                 request.getUserWall(username, PostId).then(
                     function (response) {
                         $scope.posts = response;
-                        console.log(response);
-                        console.log(lastPostId);
                     }
                 )
             }
@@ -175,8 +167,6 @@ app.controller('WSNHomePageController', function($scope, $controller, $rootScope
                 request.getUserWall(username, PostId).then(
                     function (response) {
                         $scope.posts = response;
-                        console.log(response);
-                        console.log(lastPostId);
                     }
                 )
             }

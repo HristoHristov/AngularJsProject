@@ -8,16 +8,19 @@
         <span ng-if="value.id === 'friend-request'" id="{{value.id}}"><a  ng-click="showFriendRequest()" href="{{location}}">Friends Request</a><div id="request" ng-show="friendsRequestCount > 0">{{friendsRequestCount}}</div></span>
 
     </li>
-    <li ng-show="isLogin" ng-style="{'margin-right': margin}"><input type="search" ng-keyup="searchUser($event)"/></li>
+    <li ng-show="isLogin" ng-style="{'margin-right': margin}">
+        <input type="search" ng-keyup="searchUser($event)"/>
+        <div ng-show="users.length > 0" id="search-friends">
+            <div class="found-user" ng-repeat="user in users">
+                <img ng-if="user.profileImageData == null" ng-src="img/images.jpg">
+                <img ng-if="user.profileImageData != null" ng-src="{{user.profileImageData}}">
+                <span><a href="#/FriendsWall/{{user.username}}" class="found-user-name">{{user.name}}</a></span>
+            </div>
+        </div>
+    </li>
 </ul>
 <button ng-show="showAddUserButton" id="add-friend" ng-click="addFriend(username)">Add Friend</button>
-<div ng-show="users.length > 0" id="search-friends">
-    <div class="found-user" ng-repeat="user in users">
-        <img ng-if="user.profileImageData == null" ng-src="img/images.jpg">
-        <img ng-if="user.profileImageData != null" ng-src="{{user.profileImageData}}">
-        <span><a href="#/FriendsWall/{{user.username}}">{{user.name}}</a></span>
-    </div>
-</div>
+
 <div id="show-friend-request">
     <div class="add-friend" ng-repeat="friendsRequest in friendsRequests">
         <img ng-show="friendsRequest.user.profileImageData === null" ng-src="img/images.jpg">

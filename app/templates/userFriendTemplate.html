@@ -1,10 +1,9 @@
 <header ng-include="'templates/header.html'"></header>
-{{searchUserByName}}
 <input type="search" id="searchUserByName"  placeholder="Search User by Name" ng-model="filterBy.name"/>
 
 <div ng-init="gender=['Other', 'Male', 'Female']" class="friend-info" ng-repeat="friend in friends | filter:filterBy">
-    <img ng-src="{{friend.profileImageData}}"/>
-    <img ng-show="" ng-src="img/images.jpg"/>
+    <img ng-show="friend.profileImageData != null" ng-src="{{friend.profileImageData}}"/>
+    <img ng-show="friend.profileImageData == null" src="img/images.jpg"/>
     <div class="friend-data">
         <div class="friend-name">{{friend.name}}</div>
         <span>Gender: </span>

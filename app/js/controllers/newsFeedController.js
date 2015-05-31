@@ -4,7 +4,6 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
     var request = $controller('requests');
 
     $scope.headerData = variables.headerData();
-    console.log($scope.headerData)
     $scope.loginUserUsername = sessionStorage.userName;
 
     request.getInfoForMe().then(
@@ -16,9 +15,7 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
             sessionStorage.image == 'null' ? $scope.loginUserImage = 'img/images.jpg' : $scope.loginUserImage = sessionStorage.image;
             $scope.name = sessionStorage.name;
             if(sessionStorage.coverImage != 'null' ) {
-                console.log(sessionStorage.coverImage)
-                var style = '<style>header::before{background-image: url("' + sessionStorage.coverImage + '");}</style>'
-
+                var style = '<style>header::before{background-image: url("' + sessionStorage.coverImage + '");}</style>';
                 $('header').append(style)
             }
         }
@@ -28,7 +25,7 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
     $scope.name = sessionStorage.name;
     $scope.user=""
     $scope.isLogin = true;
-    $scope.margin = '6%';
+    $scope.margin = variables.checkingResultion();
     $scope.post= '';
     $scope.showAddUserButton = false;
     $scope.isFirstPage = true;
@@ -48,12 +45,10 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
             $scope.friendsRequests = success;
             $scope.friendsRequestCount = success.length;
             $rootScope.location = window.location.href;
-            console.log(success)
         }
     )
     request.getMyFriend().then(
         function (success) {
-            console.log(success)
             $scope.friends = success;
         }
     );
@@ -65,10 +60,8 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
     request.getNewsFeedPage('').then(
         function (response) {
             if(response.length > 0) {
-                console.log(response)
                 $scope.posts = response;
-                lastPostId.push(response[response.length - 1].id)
-                console.log(lastPostId);
+                lastPostId.push(response[response.length - 1].id);
             }
             variables.hideLoaderImage();
         }
@@ -134,8 +127,6 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
                     lastPostId.push(response[response.length - 1].id);
                     $scope.thisPageIndex++;
                     $scope.posts = response;
-                    console.log(response);
-                    console.log(lastPostId);
                 }
             }
         )
@@ -148,8 +139,6 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
             request.getNewsFeedPage(PostId).then(
                 function (response) {
                     $scope.posts = response;
-                    console.log(response);
-                    console.log(lastPostId);
                 }
             )
         }
@@ -163,8 +152,6 @@ app.controller('WSNNewsFeedPageController', function($scope, $controller, $rootS
             request.getNewsFeedPage(PostId).then(
                 function (response) {
                     $scope.posts = response;
-                    console.log(response);
-                    console.log(lastPostId);
                 }
             )
         }
